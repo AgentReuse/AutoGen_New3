@@ -8,7 +8,12 @@ from autogen_agentchat.teams import SelectorGroupChat
 from autogen_agentchat.messages import TextMessage, ModelClientStreamingChunkEvent, BaseAgentEvent, BaseChatMessage
 from autogen_core.models import ChatCompletionClient
 from autogen_core import CancellationToken
+from autogen_agentchat.base import Response
 
+import os
+
+os.environ['HTTP_PROXY'] = 'http://127.0.0.1:7897'
+os.environ['HTTPS_PROXY'] = 'http://127.0.0.1:7897'
 
 @cl.step(type="tool")
 async def search_web(query: str) -> str:
@@ -39,7 +44,7 @@ async def start_chat() -> None:
 
     input_refiner = AssistantAgent(
         name="InputRefiner",
-        system_message="你善于将用户输入精炼为简明、结构化、信息密度高的任务描述。必须注意：你的发言是高度概括性的，只需要一句话，一般不超过20个字。",
+        system_message="You are good at condensing user input into concise, structured, and information-dense task descriptions. Note: Your responses should be highly summarized, typically no more than 20 words. The input you provide is divided into sentences and keywords. The keywords must appear in the sentences. In the task description you generate, the keywords clearly stated in the input must be included and enclosed in curly braces ({}).",
         model_client=model_client,
         model_client_stream=True,
         reflect_on_tool_use=False,
@@ -47,7 +52,7 @@ async def start_chat() -> None:
 
     info_retriever = AssistantAgent(
         name="InfoRetriever",
-        system_message="你善于检索与任务相关的知识、实例、数据，必要时可调用search_web工具。",
+        system_message="You are good at retrieving knowledge, examples and data related to the task. When necessary, you can call the search_web tool.",
         tools=[search_web],
         model_client=model_client,
         model_client_stream=True,
@@ -56,7 +61,7 @@ async def start_chat() -> None:
 
     analyst = AssistantAgent(
         name="Analyst",
-        system_message="你擅长对给定任务或信息进行条理清晰的分析，可调用analyze_data工具协助判断。",
+        system_message="You are good at conducting clear and organized analyses of given tasks or information, and can call on the analyze_data tool to assist in making judgments.",
         tools=[analyze_data],
         model_client=model_client,
         model_client_stream=True,
@@ -65,8 +70,10 @@ async def start_chat() -> None:
 
     output_summarizer = AssistantAgent(
         name="OutputSummarizer",
-        system_message="你不直接参与和其他agent的交流，你只需要对目前上下文中的其他团队成员给出的输出做出系统性的总结，需要是有条理的，易于理解的。",
+        system_message="You do not directly engage in communication with other agents. You only need to make a systematic summary of the outputs given by other team members in the current context, which should be organized and easy to understand.",
         model_client=model_client,
+
+
         model_client_stream=True,
         reflect_on_tool_use=False,
     )
@@ -74,9 +81,11 @@ async def start_chat() -> None:
     team = SelectorGroupChat(
         [input_refiner, info_retriever, analyst, output_summarizer],
         model_client=model_client,
-        selector_func=selector_func,  # 首尾定序，中间自由
+        # selector_func=selector_func,  # 首尾定序，中间自由
         max_turns=6,
     )
+
+
 
     cl.user_session.set("team", team)  # type: ignore
 
@@ -104,26 +113,30 @@ async def chat(message: cl.Message) -> None:
     user_text = message.content
     team = cast(SelectorGroupChat, cl.user_session.get("team"))
 
-    msg = None
-    input_refiner_content = ""
-
     async for evt in team.run_stream(
         task=user_text,
         cancellation_token=CancellationToken(),
     ):
-        agent_name = getattr(evt, "source", None) or getattr(getattr(evt, "chat_message", None), "source", None)
-        print("agent_name")
-        print(agent_name)
+        isReuse = 0 ## 0为不复用，1为计划复用，2为响应复用
 
-        if agent_name == "InputRefiner":
-            if hasattr(evt, "content") and isinstance(evt.content, str):
-                input_refiner_content += evt.content
-            elif hasattr(evt, "content"):
-                with open("input_refiner.txt", "a", encoding="utf-8") as f:
-                    f.write(input_refiner_content.strip() + "\n")
-                input_refiner_content = ""
+        if isReuse == 0:
+            agent_name = getattr(evt, "source", None) or getattr(getattr(evt, "chat_message", None), "source", None)
 
-        elif agent_name == "OutputSummarizer":
+            if agent_name == "InputRefiner":
+                if hasattr(evt, "content") and isinstance(evt.content, str):
+                    with open("input_refiner.txt", "a", encoding="utf-8") as f:
+                        f.write(evt.content)
+
+        elif isReuse == 1:
+            external_content = "【这是我希望 InputRefiner 说的话，由我外部指定】"
+            msg = TextMessage(source="InputRefiner", content=external_content)
+            # team._group_chat_manager._message_thread.append(msg)
+            team._group_chat_manager.update_message_thread(msg)
+
+        elif isReuse == 2:
+            pass
+
+        if agent_name == "OutputSummarizer":
             if msg is None:
                 msg = cl.Message(author="OutputSummarizer", content="")
             if hasattr(evt, "content") and isinstance(evt.content, str):
