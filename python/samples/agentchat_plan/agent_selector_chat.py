@@ -111,10 +111,21 @@ async def set_starts() -> List[cl.Starter]:
 @cl.on_message
 async def chat(message: cl.Message) -> None:
     user_text = message.content
+    input_refiner = cl.user_session.get("input_refiner")
+    refined = ""
+    async for evt in input_refiner.on_messages_stream(
+            messages=[TextMessage(content=user_text, source="user")],
+            cancellation_token=CancellationToken(),
+    ):
+        if isinstance(evt, ModelClientStreamingChunkEvent):
+            refined += evt.content
+
+    initial_thread = [TextMessage(source="InputRefiner", content=refined)]
+
     team = cast(SelectorGroupChat, cl.user_session.get("team"))
 
     async for evt in team.run_stream(
-        task=user_text,
+        messages=initial_thread,
         cancellation_token=CancellationToken(),
     ):
         isReuse = 0 ## 0为不复用，1为计划复用，2为响应复用
