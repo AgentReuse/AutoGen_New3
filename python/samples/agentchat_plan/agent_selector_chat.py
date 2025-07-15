@@ -8,10 +8,9 @@ from autogen_agentchat.teams import SelectorGroupChat
 from autogen_agentchat.messages import TextMessage, ModelClientStreamingChunkEvent, BaseAgentEvent, BaseChatMessage
 from autogen_core.models import ChatCompletionClient
 from autogen_core import CancellationToken
-from autogen_agentchat.base import Response
 
 # Example usage in another script:
-from python.transit_intent import load_models, predict
+from transit_intent import load_models, predict
 
 import os
 
@@ -128,8 +127,8 @@ async def chat(message: cl.Message) -> None:
     team = cast(SelectorGroupChat, cl.user_session.get("team"))
 
     # load_models()  # optional, uses default dirs
-    load_models(intent_dir="python/transit_intent/bert_intent_model",
-                slot_dir="python/transit_intent/bert_slot_model")
+    load_models(intent_dir="transit_intent/bert_intent_model",
+                slot_dir="transit_intent/bert_slot_model")
     intent = predict(user_text)
     print(intent)
 
