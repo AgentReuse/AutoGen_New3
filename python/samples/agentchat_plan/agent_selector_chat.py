@@ -10,6 +10,9 @@ from autogen_core.models import ChatCompletionClient
 from autogen_core import CancellationToken
 from autogen_agentchat.base import Response
 
+# Example usage in another script:
+from python.transit_intent import load_models, predict
+
 import os
 
 os.environ['HTTP_PROXY'] = 'http://127.0.0.1:7897'
@@ -123,6 +126,12 @@ async def chat(message: cl.Message) -> None:
     initial_thread = [TextMessage(source="InputRefiner", content=refined)]
 
     team = cast(SelectorGroupChat, cl.user_session.get("team"))
+
+    # load_models()  # optional, uses default dirs
+    load_models(intent_dir="python/transit_intent/bert_intent_model",
+                slot_dir="python/transit_intent/bert_slot_model")
+    intent = predict(user_text)
+    print(intent)
 
     async for evt in team.run_stream(
         messages=initial_thread,
