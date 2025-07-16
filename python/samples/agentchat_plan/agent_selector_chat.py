@@ -1,5 +1,5 @@
 from typing import List, Sequence, cast
-
+from Response_reuse import SemanticCache
 import chainlit as cl
 import yaml
 
@@ -14,8 +14,14 @@ from transit_intent import load_models, predict
 
 import os
 
-os.environ['HTTP_PROXY'] = 'http://127.0.0.1:7897'
-os.environ['HTTPS_PROXY'] = 'http://127.0.0.1:7897'
+os.environ['HTTP_PROXY'] = 'http://127.0.0.1:33210'    #'http://127.0.0.1:7897'
+os.environ['HTTPS_PROXY'] = 'http://127.0.0.1:33210'
+
+#初始化
+semantic_cache = SemanticCache(
+    embedding_model_path="./m3e-small",
+    cache_path="./semantic_cache"
+)
 
 @cl.step(type="tool")
 async def search_web(query: str) -> str:
@@ -43,6 +49,7 @@ async def start_chat() -> None:
     with open("model_config.yaml", "r") as f:
         model_cfg = yaml.safe_load(f)
     model_client = ChatCompletionClient.load_component(model_cfg)
+
 
     input_refiner = AssistantAgent(
         name="InputRefiner",
@@ -136,24 +143,33 @@ async def chat(message: cl.Message) -> None:
         messages=initial_thread,
         cancellation_token=CancellationToken(),
     ):
-        isReuse = 0 ## 0为不复用，1为计划复用，2为响应复用
+        embedding=semantic_cache.get_embedding(user_text)
+        similar_question,score=semantic_cache.search_similar_query(embedding)
+        isReuse =0   #0表示不复用，1表示计划复用，2表示响应复用
+        if score<0.75 :
+            isReuse=0
+        elif 0.75 <= score < 0.90:
+            isReuse=1
+        else:
+            isReuse=2
 
         if isReuse == 0:
             agent_name = getattr(evt, "source", None) or getattr(getattr(evt, "chat_message", None), "source", None)
 
             if agent_name == "InputRefiner":
                 if hasattr(evt, "content") and isinstance(evt.content, str):
-                    with open("input_refiner.txt", "a", encoding="utf-8") as f:
-                        f.write(evt.content)
+                    semantic_cache.save_to_cache(user_text,evt.content,None)   #存储响应
 
         elif isReuse == 1:
-            external_content = "【这是我希望 InputRefiner 说的话，由我外部指定】"
+            external_content=semantic_cache.cache[user_text]["plan"]    #读取计划
+            ## external_content = "【这是我希望 InputRefiner 说的话，由我外部指定】"
             msg = TextMessage(source="InputRefiner", content=external_content)
-            # team._group_chat_manager._message_thread.append(msg)
+            team._group_chat_manager._message_thread.append(msg)
             team._group_chat_manager.update_message_thread(msg)
 
         elif isReuse == 2:
-            pass
+            msg=semantic_cache.cache[user_text]["response"]   #读取响应
+            team._group_chat_manager.update_message_thread(msg)
 
         if agent_name == "OutputSummarizer":
             if msg is None:
