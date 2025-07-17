@@ -107,8 +107,8 @@ async def set_starts() -> List[cl.Starter]:
             message="我想去云南自由行5天，能帮我设计一份详细路线和注意事项吗？"
         ),
         cl.Starter(
-            label="数据分析",
-            message="请帮我分析一份销售数据，给出增长瓶颈和改进建议。原始数据如下：......"
+            label="Train Query",
+            message="Is the train from JFK Airport to San Francisco running next Monday?"
         ),
     ]
 
