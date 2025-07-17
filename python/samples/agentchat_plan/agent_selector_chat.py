@@ -8,14 +8,18 @@ from autogen_agentchat.teams import SelectorGroupChat
 from autogen_agentchat.messages import TextMessage, ModelClientStreamingChunkEvent, BaseAgentEvent, BaseChatMessage
 from autogen_core.models import ChatCompletionClient
 from autogen_core import CancellationToken
-
-# Example usage in another script:
-from transit_intent import load_models, predict
+from autogen_agentchat.base import Response
 
 import os
 
 os.environ['HTTP_PROXY'] = 'http://127.0.0.1:7897'
 os.environ['HTTPS_PROXY'] = 'http://127.0.0.1:7897'
+
+#初始化
+semantic_cache = SemanticCache(
+    embedding_model_path="./m3e-small",
+    cache_path="./semantic_cache"
+)
 
 @cl.step(type="tool")
 async def search_web(query: str) -> str:
@@ -113,27 +117,10 @@ async def set_starts() -> List[cl.Starter]:
 @cl.on_message
 async def chat(message: cl.Message) -> None:
     user_text = message.content
-    input_refiner = cl.user_session.get("input_refiner")
-    refined = ""
-    async for evt in input_refiner.on_messages_stream(
-            messages=[TextMessage(content=user_text, source="user")],
-            cancellation_token=CancellationToken(),
-    ):
-        if isinstance(evt, ModelClientStreamingChunkEvent):
-            refined += evt.content
-
-    initial_thread = [TextMessage(source="InputRefiner", content=refined)]
-
     team = cast(SelectorGroupChat, cl.user_session.get("team"))
 
-    # load_models()  # optional, uses default dirs
-    load_models(intent_dir="transit_intent/bert_intent_model",
-                slot_dir="transit_intent/bert_slot_model")
-    intent = predict(user_text)
-    print(intent)
-
     async for evt in team.run_stream(
-        messages=initial_thread,
+        task=user_text,
         cancellation_token=CancellationToken(),
     ):
         isReuse = 0 ## 0为不复用，1为计划复用，2为响应复用
