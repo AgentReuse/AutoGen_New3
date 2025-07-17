@@ -8,14 +8,18 @@ from autogen_agentchat.teams import SelectorGroupChat
 from autogen_agentchat.messages import TextMessage, ModelClientStreamingChunkEvent, BaseAgentEvent, BaseChatMessage
 from autogen_core.models import ChatCompletionClient
 from autogen_core import CancellationToken
-
-# Example usage in another script:
-from transit_intent import load_models, predict
+from autogen_agentchat.base import Response
 
 import os
 
 os.environ['HTTP_PROXY'] = 'http://127.0.0.1:7897'
 os.environ['HTTPS_PROXY'] = 'http://127.0.0.1:7897'
+
+#初始化
+semantic_cache = SemanticCache(
+    embedding_model_path="./m3e-small",
+    cache_path="./semantic_cache"
+)
 
 @cl.step(type="tool")
 async def search_web(query: str) -> str:
@@ -126,12 +130,6 @@ async def chat(message: cl.Message) -> None:
     msg = cl.Message(content="")
 
     team = cast(SelectorGroupChat, cl.user_session.get("team"))
-
-    # load_models()  # optional, uses default dirs
-    load_models(intent_dir="transit_intent/bert_intent_model",
-                slot_dir="transit_intent/bert_slot_model")
-    intent = predict(user_text)
-    print(intent)
 
     async for evt in team.run_stream(
         task=refined,
