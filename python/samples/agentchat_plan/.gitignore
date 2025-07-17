@@ -1,3 +1,5 @@
+/model_config.yaml
+
 # ========== 本地语义缓存与模型 ==========
 semantic_cache/
 
@@ -45,3 +47,4 @@ pip-wheel-metadata/
 
 # ========== VS Code Remote ==========
 .vscode-server/
+
