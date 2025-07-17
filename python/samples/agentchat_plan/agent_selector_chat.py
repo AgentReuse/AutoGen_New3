@@ -87,8 +87,7 @@ async def start_chat() -> None:
         max_turns=6,
     )
 
-
-
+    cl.user_session.set("input_refiner", input_refiner)
     cl.user_session.set("team", team)  # type: ignore
 
 
@@ -113,6 +112,7 @@ async def set_starts() -> List[cl.Starter]:
 @cl.on_message
 async def chat(message: cl.Message) -> None:
     user_text = message.content
+
     input_refiner = cl.user_session.get("input_refiner")
     refined = ""
     async for evt in input_refiner.on_messages_stream(
@@ -122,7 +122,8 @@ async def chat(message: cl.Message) -> None:
         if isinstance(evt, ModelClientStreamingChunkEvent):
             refined += evt.content
 
-    initial_thread = [TextMessage(source="InputRefiner", content=refined)]
+    team: SelectorGroupChat = cl.user_session.get("team")
+    msg = cl.Message(content="")
 
     team = cast(SelectorGroupChat, cl.user_session.get("team"))
 
@@ -133,7 +134,7 @@ async def chat(message: cl.Message) -> None:
     print(intent)
 
     async for evt in team.run_stream(
-        messages=initial_thread,
+        task=refined,
         cancellation_token=CancellationToken(),
     ):
         isReuse = 0 ## 0为不复用，1为计划复用，2为响应复用
@@ -154,11 +155,3 @@ async def chat(message: cl.Message) -> None:
 
         elif isReuse == 2:
             pass
-
-        if agent_name == "OutputSummarizer":
-            if msg is None:
-                msg = cl.Message(author="OutputSummarizer", content="")
-            if hasattr(evt, "content") and isinstance(evt.content, str):
-                await msg.stream_token(evt.content)
-            elif hasattr(evt, "content"):
-                await msg.send()
