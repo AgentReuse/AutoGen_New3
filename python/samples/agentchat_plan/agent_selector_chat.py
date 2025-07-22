@@ -134,7 +134,6 @@ async def chat(message: cl.Message) -> None:
         else:
             isReuse=2
 
-
         if isReuse == 0:
             agent_name = getattr(evt, "source", None) or getattr(getattr(evt, "chat_message", None), "source", None)
 
@@ -143,15 +142,14 @@ async def chat(message: cl.Message) -> None:
                     semantic_cache.save_to_cache(user_text,evt.content,None)   #存储响应
 
         elif isReuse == 1:
-            external_content=semantic_cache.cache[similar_question]["plan"]    #读取计划
+            external_content=semantic_cache.cache[user_text]["plan"]    #读取计划
             ## external_content = "【这是我希望 InputRefiner 说的话，由我外部指定】"
             msg = TextMessage(source="InputRefiner", content=external_content)
             team._group_chat_manager._message_thread.append(msg)
             team._group_chat_manager.update_message_thread(msg)
 
         elif isReuse == 2:
-            external_content=semantic_cache.cache[similar_question]["response"]
-            msg = TextMessage(source="InputRefiner", content=external_content)   #读取响应
+            msg=semantic_cache.cache[user_text]["response"]   #读取响应
             team._group_chat_manager.update_message_thread(msg)
 
         if agent_name == "OutputSummarizer":
