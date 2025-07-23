@@ -158,20 +158,25 @@ async def chat(message: cl.Message) -> None:
             if agent_name == "InputRefiner":
                 print("InputRefiner has been selected.")
                 if hasattr(evt, "content") and isinstance(evt.content, str):
-                    with open("input_refiner.txt", "a", encoding="utf-8") as f:
-                        f.write(evt.content)
-            semantic_cache.save_to_cache(user_text, evt.content, None)   #存储响应
+                    semantic_cache.save_to_cache(user_text, None, evt.content)   #存储响应
 
         elif isReuse == 1:
             external_content = semantic_cache.cache[user_text]["plan"]  # 读取计划
-            ##external_content = "【这是我希望 InputRefiner 说的话，由我外部指定】"
             msg = TextMessage(source="InputRefiner", content=external_content)
             # team._group_chat_manager._message_thread.append(msg)
             team._group_chat_manager.update_message_thread(msg)
 
+            
+
         elif isReuse == 2:
-            msg = semantic_cache.cache[user_text]["response"]  # 读取响应
-            team._group_chat_manager.update_message_thread(msg)
+            external_content= semantic_cache.cache[user_text]["response"]  # 读取响应
+            msg = cl.Message(author="OutputSummarizer", content=external_content)
+            if msg is None:
+                msg = cl.Message(author="OutputSummarizer", content="")
+            if hasattr(evt, "content") and isinstance(evt.content, str):
+                await msg.stream_token(evt.content)
+            elif hasattr(evt, "content"):
+                await msg.send()
 
         if agent_name == "OutputSummarizer":
             if msg is None:
