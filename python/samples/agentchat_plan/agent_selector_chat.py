@@ -2,7 +2,7 @@ from typing import List, Sequence, cast
 
 import chainlit as cl
 import yaml
-
+from Response_reuse import SemanticCache
 from autogen_agentchat.agents import AssistantAgent
 from autogen_agentchat.teams import SelectorGroupChat
 from autogen_agentchat.messages import TextMessage, ModelClientStreamingChunkEvent, BaseAgentEvent, BaseChatMessage
@@ -11,6 +11,12 @@ from autogen_core import CancellationToken
 
 # Example usage in another script:
 from transit_intent import load_models, predict
+
+#初始化
+semantic_cache = SemanticCache(
+    embedding_model_path="./m3e-small",
+    cache_path="./semantic_cache"
+)
 
 import os
 
@@ -112,7 +118,8 @@ async def set_starts() -> List[cl.Starter]:
 @cl.on_message
 async def chat(message: cl.Message) -> None:
     user_text = message.content
-
+    embedding = semantic_cache.get_embedding(user_text)             #向量化
+    similar_question, score = semantic_cache.search_similar_query(embedding)   #相似性搜索
     input_refiner = cl.user_session.get("input_refiner")
     refined = ""
     async for evt in input_refiner.on_messages_stream(
@@ -139,6 +146,12 @@ async def chat(message: cl.Message) -> None:
     ):
         isReuse = 0 ## 0为不复用，1为计划复用，2为响应复用
 
+        if score<0.75 :
+            isReuse=0
+        elif 0.75 <= score < 0.90:
+            isReuse=1
+        else:
+            isReuse=2
         if isReuse == 0:
             agent_name = getattr(evt, "source", None) or getattr(getattr(evt, "chat_message", None), "source", None)
 
@@ -147,15 +160,18 @@ async def chat(message: cl.Message) -> None:
                 if hasattr(evt, "content") and isinstance(evt.content, str):
                     with open("input_refiner.txt", "a", encoding="utf-8") as f:
                         f.write(evt.content)
+            semantic_cache.save_to_cache(user_text, evt.content, None)   #存储响应
 
         elif isReuse == 1:
-            external_content = "【这是我希望 InputRefiner 说的话，由我外部指定】"
+            external_content = semantic_cache.cache[user_text]["plan"]  # 读取计划
+            ##external_content = "【这是我希望 InputRefiner 说的话，由我外部指定】"
             msg = TextMessage(source="InputRefiner", content=external_content)
             # team._group_chat_manager._message_thread.append(msg)
             team._group_chat_manager.update_message_thread(msg)
 
         elif isReuse == 2:
-            pass
+            msg = semantic_cache.cache[user_text]["response"]  # 读取响应
+            team._group_chat_manager.update_message_thread(msg)
 
         if agent_name == "OutputSummarizer":
             if msg is None:
