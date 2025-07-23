@@ -150,7 +150,7 @@ async def chat(message: cl.Message) -> None:
             if agent_name == "InputRefiner":
                 print("InputRefiner has been selected.")
                 if hasattr(evt, "content") and isinstance(evt.content, str):
-                    semantic_cache.save_to_cache(user_text, None, evt.content)   #存储响应
+                    semantic_cache.save_to_cache(user_text, None, evt.content)   #存储计划
 
         elif isReuse == 1:
             external_content = semantic_cache.cache[user_text]["plan"]  # 读取计划
@@ -170,10 +170,11 @@ async def chat(message: cl.Message) -> None:
             elif hasattr(evt, "content"):
                 await msg.send()
 
-        if agent_name == "OutputSummarizer":
+        if agent_name == "OutputSummarizer" and isReuse != 2:
             if msg is None:
                 msg = cl.Message(author="OutputSummarizer", content="")
             if hasattr(evt, "content") and isinstance(evt.content, str):
                 await msg.stream_token(evt.content)
             elif hasattr(evt, "content"):
                 await msg.send()
+            semantic_cache.save_to_cache(user_text, evt.content, None)
