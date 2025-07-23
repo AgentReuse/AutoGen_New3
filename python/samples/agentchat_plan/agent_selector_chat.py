@@ -185,4 +185,4 @@ async def chat(message: cl.Message) -> None:
                 await msg.stream_token(evt.content)
             elif hasattr(evt, "content"):
                 await msg.send()
-            semantic_cache.save_to_cache(user_text, None, evt.content)
+            semantic_cache.save_to_cache(user_text, evt.content, None)
