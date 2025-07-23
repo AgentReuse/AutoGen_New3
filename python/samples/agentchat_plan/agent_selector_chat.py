@@ -52,7 +52,7 @@ async def start_chat() -> None:
 
     input_refiner = AssistantAgent(
         name="InputRefiner",
-        system_message="You are good at condensing user input into concise, structured, and information-dense task descriptions. Note: Your responses should be highly summarized, typically no more than 20 words. The input you provide is divided into sentences and keywords. The keywords must appear in the sentences. In the task description you generate, the keywords clearly stated in the input must be included and enclosed in curly braces ({}).",
+        system_message="You are good at condensing user input into concise, structured, and information-dense task descriptions. Note: Your responses should be highly summarized, typically no more than 30 words. The input you provide is divided into sentences and keywords. The keywords must appear in the sentences. In the task description you generate, the keywords clearly stated in the input must be included and enclosed in curly braces ({}). When mentioning an entity value in your output sentence, wrap it with curly braces in the format {entity_type:entity_value}. For example, if the entity is {'transport_mode': 'train', 'source': 'jfk airport', 'destination': 'san francisco', 'date': 'next monday'}, you must refer to san francisco as {'destination': 'san francisco'} in your response.",
         model_client=model_client,
         model_client_stream=True,
         reflect_on_tool_use=False,
@@ -101,16 +101,8 @@ async def start_chat() -> None:
 async def set_starts() -> List[cl.Starter]:
     return [
         cl.Starter(
-            label="法律咨询",
-            message="我最近被公司解雇，对方没有提前一个月通知我，只支付了一个月工资补偿，请问我能否要求更多补偿？有哪些相关的法律依据和案例？我需要注意哪些风险？"
-        ),
-        cl.Starter(
-            label="旅游攻略",
-            message="我想去云南自由行5天，能帮我设计一份详细路线和注意事项吗？"
-        ),
-        cl.Starter(
-            label="数据分析",
-            message="请帮我分析一份销售数据，给出增长瓶颈和改进建议。原始数据如下：......"
+            label="Ticket",
+            message="Is the train from JFK Airport to San Francisco running next Monday?"
         ),
     ]
 
