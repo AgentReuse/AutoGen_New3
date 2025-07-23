@@ -12,12 +12,6 @@ class SemanticCache:
         self.vector_id_map = {}
         self.id_counter = 0
         self.cache = Index('./semantic_cache')
-
-        self.cache = Index(  # 增加缓存限制，使用LRU算法进行替换
-            directory=cache_path,
-            size_limit=20 * 1024 * 1024,  # 20MB
-            eviction_policy='least-recently-used'
-        )
         self._load_cache()
 
     def _load_cache(self):
