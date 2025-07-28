@@ -1,99 +1,102 @@
 import os
+import sqlite3
 import numpy as np
 from sentence_transformers import SentenceTransformer
 import faiss
-from diskcache import Index
 
 class SemanticCache:
     def __init__(self, embedding_model_path: str, cache_path: str):
-        self.model = SentenceTransformer("./m3e-small")
+        self.model = SentenceTransformer(embedding_model_path)
         self.embedding_dim = self.model.get_sentence_embedding_dimension()
         self.index = faiss.IndexFlatIP(self.embedding_dim)
         self.vector_id_map = {}
         self.id_counter = 0
-        self.cache = Index('./semantic_cache')
 
-        self.cache = Index(  # 增加缓存限制，使用LRU算法进行替换
-            directory=cache_path,
-            size_limit=20 * 1024 * 1024,  # 20MB
-            eviction_policy='least-recently-used'
-        )
+        # 使用sqlite作为缓存
+        self.cache_db_path = os.path.join(cache_path, "semantic_cache.db")
+        os.makedirs(cache_path, exist_ok=True)
+        self.conn = sqlite3.connect(self.cache_db_path, check_same_thread=False)
+        self._init_db()
         self._load_cache()
+
+    def _init_db(self):
+        cursor = self.conn.cursor()
+        cursor.execute('''
+            CREATE TABLE IF NOT EXISTS cache (
+                query TEXT PRIMARY KEY,
+                response TEXT,
+                plan TEXT
+            )
+        ''')
+        self.conn.commit()
 
     def _load_cache(self):
         print("加载历史语义缓存中...")
-        for key in self.cache:
-            vector = self.model.encode(key, normalize_embeddings=True).astype(np.float32)
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT query FROM cache")
+        all_queries = cursor.fetchall()
+        for (query,) in all_queries:
+            vector = self.model.encode(query, normalize_embeddings=True).astype(np.float32)
             self.index.add(np.array([vector]))
-            self.vector_id_map[self.id_counter] = key
+            self.vector_id_map[self.id_counter] = query
             self.id_counter += 1
         print(f"已恢复 {self.id_counter} 条语义问答缓存\n")
 
-    def get_embedding(self, text: str) -> np.ndarray:           #向量化，传入文本即可返回faiss适用的向量格式
+    def get_embedding(self, text: str) -> np.ndarray:
         embedding = self.model.encode(text, normalize_embeddings=True)
         return embedding.astype(np.float32)
 
-    def search_similar_query(self, query_vector: np.ndarray):    #faiss的indexflatip进行向量化搜索并返回最相似的问题和相似度
-        threshold = 0    #初始阈值
-        top_k = 1        #找相似度最高的top_k条
-
+    def search_similar_query(self, query_vector: np.ndarray):
+        threshold = 0
+        top_k = 1
         if self.index.ntotal == 0:
-            return None
-
+            return None, 0
         scores, indices = self.index.search(np.array([query_vector]), top_k)
         for score, idx in zip(scores[0], indices[0]):
             if score >= threshold:
                 matched_query = self.vector_id_map[idx]
-                return matched_query, score
-        return None
+                # 从缓存里直接读出
+                cursor = self.conn.cursor()
+                cursor.execute("SELECT response, plan FROM cache WHERE query=?", (matched_query,))
+                row = cursor.fetchone()
+                cached_data = {"response": row[0], "plan": row[1]} if row else {}
+                return matched_query, score, cached_data
+        return None, 0
 
     def save_to_cache(self, query: str, response: str = None, plan: str = None):
-        entry = {}
-        if response is not None:
-            entry["response"] = response
-        if plan is not None:
-            entry["plan"] = plan
-
-        if not entry:
+        if response is None and plan is None:
             print(f"[警告] 未传入 response 或 plan，跳过缓存保存：{query}")
             return
-
-        self.cache[query] = entry
+        cursor = self.conn.cursor()
+        cursor.execute('''
+            INSERT OR REPLACE INTO cache (query, response, plan)
+            VALUES (?, ?, ?)
+        ''', (query, response, plan))
+        self.conn.commit()
 
         vector = self.get_embedding(query)
         self.index.add(np.array([vector]))
         self.vector_id_map[self.id_counter] = query
         self.id_counter += 1
 
-    def xtract_plane(self, response_text: str) -> str:
+        cursor.execute('SELECT * FROM cache WHERE query=?', (query,))
+        row = cursor.fetchone()
+        print(f"[DEBUG] 数据库中的条目: {row}")
+
+    def extract_plan(self, response_text: str) -> str:
         return response_text.split("。")[0] + "。" if "。" in response_text else response_text
 
-    '''
-    async def ask_with_cache(self, model_client, query: str):
-        query_vector = self.get_embedding(query)
-        result = self.search_similar_query(query_vector)
+    def close(self):
+        self.conn.close()
 
-        if result:
-            matched_query, score, cached_data = result
-            if score >= 0.90:
-                print(f"响应复用，相似问题：{matched_query} (相似度: {score:.4f})")
-                return cached_data["response"], 2
-            elif 0.75 <= score < 0.90:
-                print(f"计划复用，相似问题：{matched_query} (相似度: {score:.4f})")
-                reused_plan = cached_data.get("plan", "[无计划]")
-                return f"[计划复用] 来自问题：{matched_query}\n计划：{reused_plan}", 1
+# 用法示例
+if __name__ == "__main__":
+    cache = SemanticCache("./m3e-small", "./cache_sqlite")
+    cache.save_to_cache("你好吗", response="我很好。", plan="打招呼")
+    # cache.save_to_cache("天气如何", response="今天天气不错。")
 
-        try:
-            from autogen_core.models import UserMessage
-            response = await model_client.create([
-                UserMessage(content=query, source="user")
-            ])
-            raw_output = response.content if hasattr(response, 'content') else str(response)
-            plan = self.extract_plan(raw_output)
-            self.save_to_cache(query, raw_output, plan)
-            print("未命中，调用模型并缓存结果")
-            return raw_output, 0
-
-        except Exception as e:
-            return f"[Autogen API 错误]：{str(e)}", 0
-    '''
+    # 检索
+    query = "你最近怎么样"
+    vec = cache.get_embedding(query)
+    # result = cache.search_similar_query(vec)
+    # print(result)
