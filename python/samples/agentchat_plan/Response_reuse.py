@@ -68,10 +68,22 @@ class SemanticCache:
             print(f"[警告] 未传入 response 或 plan，跳过缓存保存：{query}")
             return
         cursor = self.conn.cursor()
-        cursor.execute('''
-            INSERT OR REPLACE INTO cache (query, response, plan)
-            VALUES (?, ?, ?)
-        ''', (query, response, plan))
+        if response is not None and plan is not None:
+            cursor.execute('''
+                INSERT OR REPLACE INTO cache (query, response, plan)
+                VALUES (?, ?, ?)
+            ''', (query, response, plan))
+        elif response is None and plan is not None:
+            cursor.execute('''
+                    INSERT INTO cache (query, plan) VALUES (?, ?)
+                    ON CONFLICT(query) DO UPDATE SET plan=excluded.plan
+                ''', (query, plan))
+        elif response is not None and plan is None:
+            cursor.execute('''
+                INSERT INTO cache (query, response)
+                VALUES (?, ?)
+                ON CONFLICT(query) DO UPDATE SET response=excluded.response
+            ''', (query, response))
         self.conn.commit()
 
         vector = self.get_embedding(query)
