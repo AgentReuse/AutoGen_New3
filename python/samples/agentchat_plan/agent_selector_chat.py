@@ -8,6 +8,7 @@ from autogen_agentchat.teams import SelectorGroupChat
 from autogen_agentchat.messages import TextMessage, ModelClientStreamingChunkEvent, BaseAgentEvent, BaseChatMessage
 from autogen_core.models import ChatCompletionClient
 from autogen_core import CancellationToken
+import re
 
 # Example usage in another script:
 from transit_intent import load_models, predict
@@ -42,6 +43,21 @@ def selector_func(messages: Sequence[BaseAgentEvent | BaseChatMessage]) -> str |
         return "OutputSummarizer"
     return None
 
+
+def clean_braces(s):
+    def replacer(match):
+        content = match.group(1).strip()
+        colon_pos = content.find(':')
+        if colon_pos == -1:
+            # 没有冒号，仅去除首尾引号
+            content = re.sub(r"^['\"‘“]+|['\"’”]+$", '', content)
+            return content.strip()
+        # 有冒号，删除冒号及其前所有内容（包括冒号和首尾引号）
+        after_colon = content[colon_pos+1:].strip()
+        after_colon = re.sub(r"^['\"‘“]+|['\"’”]+$", '', after_colon)
+        return after_colon.strip()
+    # 替换所有 {...}
+    return re.sub(r"\{([^{}]+)\}", replacer, s)
 
 
 @cl.on_chat_start  # type: ignore
@@ -111,8 +127,7 @@ async def set_starts() -> List[cl.Starter]:
 async def chat(message: cl.Message) -> None:
     user_text = message.content
     embedding = semantic_cache.get_embedding(user_text)             #向量化
-    similar_question, score = semantic_cache.search_similar_query(embedding)   #相似性搜索
-    print("111111111111111111111111")
+    similar_question, score, cached_data = semantic_cache.search_similar_query(embedding)   #相似性搜索
     print(score)
     input_refiner = cl.user_session.get("input_refiner")
     refined = ""
@@ -134,13 +149,15 @@ async def chat(message: cl.Message) -> None:
     intent = predict(user_text)
     print(intent)
 
+    refined = clean_braces(refined)
+
     async for evt in team.run_stream(
         task=refined,
         cancellation_token=CancellationToken(),
     ):
         isReuse = 0 ## 0为不复用，1为计划复用，2为响应复用
 
-        if score < 0.75 :
+        if score < 0.75:
             isReuse = 0
         elif 0.75 <= score < 0.90:
             isReuse = 1
@@ -157,7 +174,7 @@ async def chat(message: cl.Message) -> None:
                         f.write(evt.content)
 
         elif isReuse == 1:
-            external_content = semantic_cache.cache[user_text]["plan"]  # 读取计划
+            external_content = cached_data["plan"]  # 读取计划
             msg = TextMessage(source="InputRefiner", content=external_content)
             # team._group_chat_manager._message_thread.append(msg)
             team._group_chat_manager.update_message_thread(msg)
@@ -165,7 +182,7 @@ async def chat(message: cl.Message) -> None:
             
 
         elif isReuse == 2:
-            external_content = semantic_cache.cache[user_text]["response"]  # 读取响应
+            external_content = cached_data["response"]  # 读取响应
             msg = cl.Message(author="OutputSummarizer", content=external_content)
             if msg is None:
                 msg = cl.Message(author="OutputSummarizer", content="")
@@ -181,6 +198,4 @@ async def chat(message: cl.Message) -> None:
                 await msg.stream_token(evt.content)
             elif hasattr(evt, "content"):
                 await msg.send()
-            print("222222222222222222222222222")
-            print(evt.content)
             semantic_cache.save_to_cache(user_text, evt.content, None)
