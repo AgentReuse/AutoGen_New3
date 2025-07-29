@@ -131,8 +131,16 @@ async def chat(message: cl.Message) -> None:
     print(score)
     input_refiner = cl.user_session.get("input_refiner")
     refined = ""
+
+    load_models(intent_dir="transit_intent/bert_intent_model",
+                slot_dir="transit_intent/bert_slot_model")
+    intent = predict(user_text)
+    print(intent)
+
+    input = str(user_text) + str(intent)
+
     async for evt in input_refiner.on_messages_stream(
-            messages=[TextMessage(content=user_text, source="user")],
+            messages=[TextMessage(content=input, source="input")],
             cancellation_token=CancellationToken(),
     ):
         if isinstance(evt, ModelClientStreamingChunkEvent):
@@ -143,59 +151,50 @@ async def chat(message: cl.Message) -> None:
 
     team = cast(SelectorGroupChat, cl.user_session.get("team"))
 
-    # load_models()  # optional, uses default dirs
-    load_models(intent_dir="transit_intent/bert_intent_model",
-                slot_dir="transit_intent/bert_slot_model")
-    intent = predict(user_text)
-    print(intent)
+    input_refined = clean_braces(refined)
 
-    refined = clean_braces(refined)
+    isReuse = 1  # 0为不复用，1为计划复用，2为响应复用
 
-    async for evt in team.run_stream(
-        task=refined,
-        cancellation_token=CancellationToken(),
-    ):
-        isReuse = 0 ## 0为不复用，1为计划复用，2为响应复用
+    # if score < 0.75:
+    #     isReuse = 0
+    # elif 0.75 <= score < 0.90:
+    #     isReuse = 1
+    # else:
+    #     isReuse = 2
 
-        if score < 0.75:
-            isReuse = 0
-        elif 0.75 <= score < 0.90:
-            isReuse = 1
-        else:
-            isReuse = 2
-        if isReuse == 0:
+    if isReuse == 0:
+        async for evt in team.run_stream(
+                task=input_refined,
+                cancellation_token=CancellationToken(),
+        ):
+            semantic_cache.save_to_cache(user_text, None, input_refined)
             agent_name = getattr(evt, "source", None) or getattr(getattr(evt, "chat_message", None), "source", None)
 
-            if agent_name == "InputRefiner":
-                print("InputRefiner has been selected.")
+            if agent_name == "OutputSummarizer":
+                if msg is None:
+                    msg = cl.Message(author="OutputSummarizer", content="")
                 if hasattr(evt, "content") and isinstance(evt.content, str):
-                    semantic_cache.save_to_cache(user_text, None, evt.content)   #存储计划
-                    with open("input_refiner.txt", "a", encoding="utf-8") as f:
-                        f.write(evt.content)
+                    await msg.stream_token(evt.content)
+                elif hasattr(evt, "content"):
+                    await msg.send()
+                semantic_cache.save_to_cache(user_text, evt.content, None)
 
-        elif isReuse == 1:
-            external_content = cached_data["plan"]  # 读取计划
-            msg = TextMessage(source="InputRefiner", content=external_content)
-            # team._group_chat_manager._message_thread.append(msg)
-            team._group_chat_manager.update_message_thread(msg)
+    elif isReuse == 1:
+        plan = cached_data["plan"]  # 读取计划
+        async for evt in team.run_stream(
+                task=plan,
+                cancellation_token=CancellationToken(),
+        ):
+            agent_name = getattr(evt, "source", None) or getattr(getattr(evt, "chat_message", None), "source", None)
 
-            
+            if agent_name == "OutputSummarizer":
+                if msg is None:
+                    msg = cl.Message(author="OutputSummarizer", content="")
+                if hasattr(evt, "content") and isinstance(evt.content, str):
+                    await msg.stream_token(evt.content)
+                elif hasattr(evt, "content"):
+                    await msg.send()
 
-        elif isReuse == 2:
-            external_content = cached_data["response"]  # 读取响应
-            msg = cl.Message(author="OutputSummarizer", content=external_content)
-            if msg is None:
-                msg = cl.Message(author="OutputSummarizer", content="")
-            if hasattr(evt, "content") and isinstance(evt.content, str):
-                await msg.stream_token(evt.content)
-            elif hasattr(evt, "content"):
-                await msg.send()
-
-        if agent_name == "OutputSummarizer" and isReuse != 2:
-            if msg is None:
-                msg = cl.Message(author="OutputSummarizer", content="")
-            if hasattr(evt, "content") and isinstance(evt.content, str):
-                await msg.stream_token(evt.content)
-            elif hasattr(evt, "content"):
-                await msg.send()
-            semantic_cache.save_to_cache(user_text, evt.content, None)
+    elif isReuse == 2:
+        response = cached_data["response"]  # 读取响应
+        print(response)
