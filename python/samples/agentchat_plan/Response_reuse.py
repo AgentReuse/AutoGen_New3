@@ -3,6 +3,7 @@ import sqlite3
 import numpy as np
 from sentence_transformers import SentenceTransformer
 import faiss
+import json
 
 class SemanticCache:
     def __init__(self, embedding_model_path: str, cache_path: str):
@@ -26,6 +27,7 @@ class SemanticCache:
                 query TEXT PRIMARY KEY,
                 response TEXT,
                 plan TEXT
+                intent TEXT
             )
         ''')
         self.conn.commit()
@@ -50,50 +52,80 @@ class SemanticCache:
         threshold = 0
         top_k = 1
         if self.index.ntotal == 0:
-            return None, 0
+            return None, 0, None
         scores, indices = self.index.search(np.array([query_vector]), top_k)
         for score, idx in zip(scores[0], indices[0]):
             if score >= threshold:
                 matched_query = self.vector_id_map[idx]
                 # 从缓存里直接读出
                 cursor = self.conn.cursor()
-                cursor.execute("SELECT response, plan FROM cache WHERE query=?", (matched_query,))
+                cursor.execute("SELECT response, plan, intent FROM cache WHERE query=?", (matched_query,))
                 row = cursor.fetchone()
-                cached_data = {"response": row[0], "plan": row[1]} if row else {}
+                cached_data = {"response": row[0], "plan": row[1], "intent": row[2]} if row else {}
                 return matched_query, score, cached_data
-        return None, 0
+        return None, 0, None
 
-    def save_to_cache(self, query: str, response: str = None, plan: str = None):
-        if response is None and plan is None:
-            print(f"[警告] 未传入 response 或 plan，跳过缓存保存：{query}")
+    import json
+
+    def save_to_cache(self, query: str, response: str = None, plan: str = None, intent: dict = None):
+        if response is None and plan is None and intent is None:
+            print(f"[警告] 未传入 response、plan 或 intent，跳过缓存保存：{query}")
             return
+
         cursor = self.conn.cursor()
-        if response is not None and plan is not None:
+
+        #将 intent 字典转换为 JSON 字符串
+        intent_str = json.dumps(intent, ensure_ascii=False) if intent is not None else None
+
+        if response is not None and plan is not None and intent is not None:
             cursor.execute('''
-                INSERT OR REPLACE INTO cache (query, response, plan)
-                VALUES (?, ?, ?)
-            ''', (query, response, plan))
-        elif response is None and plan is not None:
-            cursor.execute('''
-                    INSERT INTO cache (query, plan) VALUES (?, ?)
-                    ON CONFLICT(query) DO UPDATE SET plan=excluded.plan
-                ''', (query, plan))
-        elif response is not None and plan is None:
-            cursor.execute('''
-                INSERT INTO cache (query, response)
-                VALUES (?, ?)
-                ON CONFLICT(query) DO UPDATE SET response=excluded.response
-            ''', (query, response))
+                INSERT OR REPLACE INTO cache (query, response, plan, intent)
+                VALUES (?, ?, ?, ?)
+            ''', (query, response, plan, intent_str))
+        else:
+            fields = ['query']
+            values = [query]
+            updates = []
+
+            if response is not None:
+                fields.append('response')
+                values.append(response)
+                updates.append('response=excluded.response')
+            if plan is not None:
+                fields.append('plan')
+                values.append(plan)
+                updates.append('plan=excluded.plan')
+            if intent is not None:
+                fields.append('intent')
+                values.append(intent_str)
+                updates.append('intent=excluded.intent')
+
+            sql = f'''
+                INSERT INTO cache ({', '.join(fields)})
+                VALUES ({', '.join(['?'] * len(values))})
+                ON CONFLICT(query) DO UPDATE SET {', '.join(updates)}
+            '''
+            cursor.execute(sql, values)
+
         self.conn.commit()
 
+        # 添加向量索引（保持不变）
         vector = self.get_embedding(query)
         self.index.add(np.array([vector]))
         self.vector_id_map[self.id_counter] = query
         self.id_counter += 1
 
+        # Debug 显示 + 可选反序列化显示 intent
         cursor.execute('SELECT * FROM cache WHERE query=?', (query,))
         row = cursor.fetchone()
         print(f"[DEBUG] 数据库中的条目: {row}")
+
+        if row and row[-1]:  # 假设 intent 是最后一列
+            try:
+                parsed_intent = json.loads(row[-1])
+                print(f"[DEBUG] intent 字典解析结果: {parsed_intent}")
+            except Exception as e:
+                print(f"[警告] intent 字段解析失败: {e}")
 
     def extract_plan(self, response_text: str) -> str:
         return response_text.split("。")[0] + "。" if "。" in response_text else response_text
