@@ -1,5 +1,5 @@
 from typing import List, Sequence, cast
-
+import time
 import chainlit as cl
 import yaml
 from Response_reuse import SemanticCache
@@ -9,6 +9,8 @@ from autogen_agentchat.messages import TextMessage, ModelClientStreamingChunkEve
 from autogen_core.models import ChatCompletionClient
 from autogen_core import CancellationToken
 import re
+import json
+from typing import Union, Dict
 
 # Example usage in another script:
 from transit_intent import load_models, predict
@@ -42,6 +44,34 @@ def selector_func(messages: Sequence[BaseAgentEvent | BaseChatMessage]) -> str |
     if len(messages) == MAX_TURNS - 1:
         return "OutputSummarizer"
     return None
+
+
+def fill_plan_keep_placeholders(template: str,
+                                entities: Union[str, Dict[str, str], None]) -> str:
+    """
+    用 entities 替换模板中形如 {key: default} 的槽位，并保留 {key: value} 格式
+    :param template: 原计划字符串，例如 "Check the {transport_mode: train} status ..."
+    :param entities: dict 或 JSON 字符串，例如 {"transport_mode":"plane", ...}
+    :return: 替换后的字符串
+    """
+    # 兼容 JSON 字符串
+    if isinstance(entities, str):
+        try:
+            entities = json.loads(entities)
+        except json.JSONDecodeError as e:
+            raise ValueError(f"entities 不是有效的 JSON：{e}")
+    entities = entities or {}
+
+    # 匹配 { key : default }
+    pattern = re.compile(r"\{\s*(?P<key>[A-Za-z0-9_]+)\s*:\s*(?P<default>[^}]*)\}")
+
+    def _replacer(m: re.Match) -> str:
+        key = m.group("key")
+        default_val = m.group("default").strip()
+        new_val = entities.get(key, default_val)
+        return f"{{{key}: {new_val}}}"
+
+    return pattern.sub(_replacer, template)
 
 
 def clean_braces(s):
@@ -126,76 +156,100 @@ async def set_starts() -> List[cl.Starter]:
 @cl.on_message
 async def chat(message: cl.Message) -> None:
     user_text = message.content
+    start_time=time.time()
     embedding = semantic_cache.get_embedding(user_text)             #向量化
     similar_question, score, cached_data = semantic_cache.search_similar_query(embedding)   #相似性搜索
+    cached_intent = json.loads(cached_data["intent"]) if cached_data is not None else None
     print(score)
     input_refiner = cl.user_session.get("input_refiner")
     refined = ""
-    async for evt in input_refiner.on_messages_stream(
-            messages=[TextMessage(content=user_text, source="user")],
-            cancellation_token=CancellationToken(),
-    ):
-        if isinstance(evt, ModelClientStreamingChunkEvent):
-            refined += evt.content
 
-    team: SelectorGroupChat = cl.user_session.get("team")
-    msg = cl.Message(content="")
-
-    team = cast(SelectorGroupChat, cl.user_session.get("team"))
-
-    # load_models()  # optional, uses default dirs
     load_models(intent_dir="transit_intent/bert_intent_model",
                 slot_dir="transit_intent/bert_slot_model")
     intent = predict(user_text)
+    semantic_cache.save_to_cache(user_text, None, None, intent)
     print(intent)
 
-    refined = clean_braces(refined)
+    input = str(user_text) + str(intent)
 
-    async for evt in team.run_stream(
-        task=refined,
-        cancellation_token=CancellationToken(),
-    ):
-        isReuse = 0 ## 0为不复用，1为计划复用，2为响应复用
+    team: SelectorGroupChat = cl.user_session.get("team")
+    msg = cl.Message(content="")
+    team = cast(SelectorGroupChat, cl.user_session.get("team"))
 
-        if score < 0.75:
-            isReuse = 0
-        elif 0.75 <= score < 0.90:
-            isReuse = 1
-        else:
-            isReuse = 2
-        if isReuse == 0:
+    # isReuse = 1  # 0为不复用，1为计划复用，2为响应复用
+    #
+    # if score < 0.75:
+    #     isReuse = 0
+    # elif 0.75 <= score < 0.95:
+    #     if intent["intent"]["label"] == cached_intent["intent"]["label"]:
+    #         isReuse = 1
+    #     else:
+    #         isReuse = 0
+    # else:
+    #     isReuse = 2
+
+    isReuse = 1
+
+    if isReuse == 0:
+        async for evt in input_refiner.on_messages_stream(
+                messages=[TextMessage(content=input, source="input")],
+                cancellation_token=CancellationToken(),
+        ):
+            if isinstance(evt, ModelClientStreamingChunkEvent):
+                refined += evt.content
+
+        input_refined = clean_braces(refined)
+
+        async for evt in team.run_stream(
+                task=input_refined,
+                cancellation_token=CancellationToken(),
+        ):
+            semantic_cache.save_to_cache(user_text, None, refined)
             agent_name = getattr(evt, "source", None) or getattr(getattr(evt, "chat_message", None), "source", None)
 
-            if agent_name == "InputRefiner":
-                print("InputRefiner has been selected.")
+            if agent_name == "OutputSummarizer":
+                if msg is None:
+                    msg = cl.Message(author="OutputSummarizer", content="")
                 if hasattr(evt, "content") and isinstance(evt.content, str):
-                    semantic_cache.save_to_cache(user_text, None, evt.content)   #存储计划
-                    with open("input_refiner.txt", "a", encoding="utf-8") as f:
-                        f.write(evt.content)
+                    await msg.stream_token(evt.content)
+                elif hasattr(evt, "content"):
+                    await msg.send()
+                semantic_cache.save_to_cache(user_text, evt.content, None)
+        end_time_0 = time.time()
 
-        elif isReuse == 1:
-            external_content = cached_data["plan"]  # 读取计划
-            msg = TextMessage(source="InputRefiner", content=external_content)
-            # team._group_chat_manager._message_thread.append(msg)
-            team._group_chat_manager.update_message_thread(msg)
 
-            
+    elif isReuse == 1:
+        plan = clean_braces(fill_plan_keep_placeholders(cached_data["plan"], intent["entities"]))
+        async for evt in team.run_stream(
+                task=plan,
+                cancellation_token=CancellationToken(),
+        ):
+            agent_name = getattr(evt, "source", None) or getattr(getattr(evt, "chat_message", None), "source", None)
 
-        elif isReuse == 2:
-            external_content = cached_data["response"]  # 读取响应
-            msg = cl.Message(author="OutputSummarizer", content=external_content)
-            if msg is None:
-                msg = cl.Message(author="OutputSummarizer", content="")
-            if hasattr(evt, "content") and isinstance(evt.content, str):
-                await msg.stream_token(evt.content)
-            elif hasattr(evt, "content"):
-                await msg.send()
+            if agent_name == "OutputSummarizer":
+                if msg is None:
+                    msg = cl.Message(author="OutputSummarizer", content="")
+                if hasattr(evt, "content") and isinstance(evt.content, str):
+                    await msg.stream_token(evt.content)
+                elif hasattr(evt, "content"):
+                    await msg.send()
+        end_time_1 = time.time()
 
-        if agent_name == "OutputSummarizer" and isReuse != 2:
-            if msg is None:
-                msg = cl.Message(author="OutputSummarizer", content="")
-            if hasattr(evt, "content") and isinstance(evt.content, str):
-                await msg.stream_token(evt.content)
-            elif hasattr(evt, "content"):
-                await msg.send()
-            semantic_cache.save_to_cache(user_text, evt.content, None)
+    elif isReuse == 2:
+        response = cached_data["response"]  # 读取响应
+        end_time_2 = time.time()
+        print(response)
+
+
+    if isReuse == 0:
+        delay0 = end_time_0-start_time
+        print(f"delay0 is {delay0}")
+    elif isReuse == 1:
+        delay1 = end_time_1 - start_time
+        print(f"delay1 is {delay1}")
+    else:
+        delay2 = end_time_2 - start_time
+        print(f"delay2 is {delay2}")
+
+
+
