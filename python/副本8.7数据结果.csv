@@ -1,0 +1,410 @@
+﻿question1,question2,label,m3e-small,s-bert(all-MiniLM-L6-v2),gte-small
+How do I get from San Francisco to Union Station using metro?,How do I get from JFK Airport to Brooklyn using train?,1,0.90335625,0.5296575427055359,0.8409271836280823
+How do I get from San Francisco to Downtown using train?,How do I get from Brooklyn to City Center using train?,1,0.9997187,0.6910987496376038,0.8914259076118469
+How do I get from JFK Airport to City Center using metro?,How do I get from Central Park to Brooklyn using train?,1,0.90335625,0.5620127320289612,0.8740317225456238
+How do I get from Union Station to San Francisco using train?,How do I get from Times Square to LA using train?,1,0.99770397,0.5759546756744385,0.8874276280403137
+How do I get from San Diego to San Francisco using train?,Is the metro from Manhattan to Brooklyn running this weekend?,0,0.8241045,0.37720322608947754,0.8013880848884583
+How do I get from San Diego to Downtown using metro?,How do I get from City Center to San Diego using metro?,1,0.99793303,0.9255572557449341,0.9670723676681519
+How do I get from JFK Airport to Central Park using bus?,How do I get from San Diego to LA using train?,1,0.9403368,0.44865041971206665,0.797654390335083
+How do I get from Manhattan to Times Square using bus?,Is the metro from JFK Airport to Union Station running this weekend?,0,0.8492023,0.4036633372306824,0.800280749797821
+How do I get from San Diego to LA using train?,Is the metro from Brooklyn to Downtown running this weekend?,0,0.81934834,0.3708477020263672,0.7864652276039124
+How do I get from City Center to Brooklyn using train?,Is the bus from Manhattan to Brooklyn running tomorrow?,0,0.8284643,0.6251668334007263,0.8772186636924744
+How do I get from LA to Downtown using train?,How do I get from City Center to San Diego using metro?,1,0.8941851,0.5645760893821716,0.8684267997741699
+How do I get from Union Station to Downtown using bus?,How do I get from JFK Airport to Central Park using bus?,1,0.99821293,0.6624719500541687,0.8746841549873352
+How do I get from Central Park to Manhattan using metro?,How do I get from Downtown to Union Station using metro?,1,0.9997523,0.7009948492050171,0.9063830375671387
+How do I get from Manhattan to Brooklyn using train?,What's the way from Manhattan to Brooklyn using train?,2,0.96309984,0.9368380308151245,0.981730580329895
+How do I get from San Diego to Downtown using bus?,Is the bus from San Francisco to Central Park running next Monday?,0,0.9224529,0.6000829935073853,0.8569263815879822
+How do I get from Brooklyn to Downtown using metro?,How do I get from JFK Airport to Times Square using train?,1,0.88951266,0.5136414766311646,0.8640282154083252
+How do I get from Downtown to Brooklyn using metro?,What's the way from Downtown to Brooklyn using metro?,2,0.95935243,0.94547039270401,0.9859296679496765
+How do I get from Times Square to Manhattan using train?,Is the bus from Brooklyn to Manhattan running today?,0,0.8205312,0.5891004800796509,0.8623565435409546
+How do I get from City Center to Times Square using bus?,Is the metro from LA to Manhattan running today?,0,0.8287111,0.41190820932388306,0.820703387260437
+How do I get from Union Station to City Center using bus?,How do I get from Central Park to San Diego using train?,1,0.94315606,0.5612314343452454,0.8602070212364197
+How do I get from Central Park to LA using metro?,How do I get from Manhattan to LA using bus?,1,0.90337074,0.6655938625335693,0.8938984870910645
+How do I get from Downtown to Brooklyn using train?,How do I get from Brooklyn to Union Station using metro?,1,0.8919098,0.8013964295387268,0.9218523502349854
+How do I get from LA to Downtown using train?,Is the bus from Manhattan to City Center running this weekend?,0,0.83388406,0.468971312046051,0.8047910332679749
+How do I get from San Diego to Downtown using bus?,Is the bus from San Francisco to Central Park running next Monday?,0,0.9224529,0.6000829935073853,0.8569263815879822
+How do I get from Manhattan to JFK Airport using bus?,Is the train from San Diego to San Francisco running tomorrow?,0,0.84804076,0.25763025879859924,0.76335209608078
+How do I get from Central Park to LA using bus?,What's the way from Central Park to LA using bus?,2,0.9633494,0.9337172508239746,0.9863325953483582
+How do I get from JFK Airport to Downtown using bus?,Is the train from San Francisco to LA running this weekend?,0,0.8534175,0.31284716725349426,0.7741954922676086
+How do I get from Downtown to Manhattan using bus?,How do I get from Central Park to Manhattan using metro?,1,0.90337074,0.7626972794532776,0.9158818125724792
+How do I get from JFK Airport to LA using bus?,Is the bus from Union Station to City Center running next Monday?,0,0.9224529,0.4001779556274414,0.8090695738792419
+How do I get from San Diego to Brooklyn using train?,Is the metro from City Center to JFK Airport running this weekend?,0,0.83250433,0.3908127248287201,0.8031721115112305
+How do I get from Union Station to Times Square using metro?,How do I get from Brooklyn to San Francisco using train?,1,0.9033477,0.5307500958442688,0.872351884841919
+How do I get from Times Square to San Diego using train?,Is the metro from Union Station to San Diego running this weekend?,0,0.83965,0.6198244094848633,0.8723611235618591
+How do I get from Central Park to LA using bus?,Is the bus from Union Station to Downtown running next Monday?,0,0.92244744,0.5122097134590149,0.8419066071510315
+How do I get from Brooklyn to San Francisco using train?,How do I get from LA to Downtown using train?,1,0.99696326,0.6994383335113525,0.8850420117378235
+How do I get from Union Station to Central Park using metro?,How do I get from San Francisco to Brooklyn using train?,1,0.90335625,0.5735002160072327,0.8608922958374023
+Is the train from Downtown to Times Square running next Monday?,Do trains from Downtown to Times Square running next Monday?,2,0.99336004,0.9428074359893799,0.9911112785339355
+How do I get from LA to Brooklyn using train?,Is the train from Downtown to Times Square running tomorrow?,0,0.8735137,0.46413227915763855,0.8477718234062195
+How do I get from San Francisco to JFK Airport using train?,How do I get from Central Park to LA using bus?,1,0.9375627,0.5561553239822388,0.8343325257301331
+How do I get from LA to Brooklyn using train?,How do I get from Downtown to Union Station using metro?,1,0.8919098,0.5551300048828125,0.8556762337684631
+How do I get from Brooklyn to Union Station using metro?,How do I get from City Center to Union Station using bus?,1,0.9145739,0.7401591539382935,0.9205583930015564
+How do I get from Brooklyn to Central Park using bus?,Is the bus from Brooklyn to Central Park running this weekend?,0,0.89894485,0.7785491943359375,0.9283463954925537
+How do I get from Downtown to Central Park using train?,Is the metro from City Center to LA running tomorrow?,0,0.8299523,0.4580717384815216,0.8410835862159729
+How do I get from Central Park to Union Station using bus?,How do I get from Times Square to Central Park using train?,1,0.94315606,0.7713160514831543,0.9182766675949097
+How do I get from JFK Airport to San Francisco using train?,How do I get from JFK Airport to City Center using metro?,1,0.90513605,0.7064114809036255,0.9004783630371094
+How do I get from JFK Airport to Downtown using bus?,What's the way from JFK Airport to Downtown using bus?,2,0.9633494,0.9442153573036194,0.9880659580230713
+How do I get from Downtown to San Francisco using metro?,Is the bus from Brooklyn to Downtown running next Monday?,0,0.8467669,0.43745657801628113,0.8378359079360962
+How do I get from Central Park to San Diego using train?,Is the train from Manhattan to LA running next Monday?,0,0.9161843,0.4181821942329407,0.8248369693756104
+How do I get from Downtown to LA using metro?,Is the bus from LA to Union Station running next Monday?,0,0.8415553,0.4571482837200165,0.8477468490600586
+How do I get from Central Park to LA using bus?,How do I get from Downtown to City Center using train?,1,0.93663204,0.6356573104858398,0.8722550272941589
+How do I get from JFK Airport to Downtown using train?,Is the train from Manhattan to Downtown running tomorrow?,0,0.8807493,0.5971947312355042,0.8728616237640381
+How do I get from Manhattan to City Center using train?,Is the metro from Downtown to San Francisco running this weekend?,0,0.82398623,0.3937801420688629,0.8202863931655884
+How do I get from Central Park to LA using metro?,What's the way from Central Park to LA using metro?,2,0.9651872,0.9291674494743347,0.9874533414840698
+How do I get from City Center to Brooklyn using train?,How do I get from Times Square to Brooklyn using bus?,1,0.9367899,0.7684141397476196,0.911541759967804
+How do I get from LA to Brooklyn using train?,How do I get from Times Square to San Diego using train?,1,0.992768,0.589987576007843,0.9045378565788269
+How do I get from Union Station to San Diego using train?,How do I get from San Diego to San Francisco using metro?,1,0.90513605,0.731672465801239,0.9098474383354187
+How do I get from Central Park to JFK Airport using train?,How do I get from LA to Manhattan using metro?,1,0.88951266,0.5214046835899353,0.8475438952445984
+Is the train from San Francisco to LA running this weekend?,Do trains from San Francisco to LA running this weekend?,2,0.9945627,0.9444818496704102,0.9900258183479309
+How do I get from Times Square to LA using train?,Is the metro from Brooklyn to City Center running tomorrow?,0,0.8261921,0.41943424940109253,0.8141429424285889
+How do I get from San Francisco to JFK Airport using train?,Is the metro from JFK Airport to City Center running tomorrow?,0,0.8346805,0.6032730340957642,0.8653033375740051
+How do I get from Times Square to San Diego using bus?,How do I get from Manhattan to San Francisco using metro?,1,0.9145739,0.5948212146759033,0.861954391002655
+How do I get from Union Station to Brooklyn using metro?,How do I get from JFK Airport to Downtown using bus?,1,0.9119492,0.5422344207763672,0.8381213545799255
+How do I get from LA to Manhattan using bus?,How do I get from Times Square to Union Station using bus?,1,0.9936571,0.5255739688873291,0.9034400582313538
+How do I get from Brooklyn to Union Station using metro?,Is the metro from Times Square to Downtown running next Monday?,0,0.9086424,0.5135220885276794,0.8226688504219055
+How do I get from Downtown to Brooklyn using train?,How do I get from LA to City Center using train?,1,0.99696326,0.7381147742271423,0.8984552025794983
+How do I get from Union Station to JFK Airport using metro?,Is the train from Manhattan to Downtown running tomorrow?,0,0.82448477,0.419787734746933,0.813940703868866
+How do I get from LA to Central Park using metro?,How do I get from LA to Brooklyn using train?,1,0.8919098,0.681915819644928,0.8894907236099243
+How do I get from San Diego to Brooklyn using train?,Is the train from City Center to Times Square running next Monday?,0,0.9098345,0.4145057499408722,0.837737500667572
+How do I get from Union Station to Downtown using bus?,How do I get from JFK Airport to Central Park using bus?,1,0.99821293,0.6624719500541687,0.8746841549873352
+How do I get from Times Square to Union Station using bus?,How do I get from Manhattan to JFK Airport using bus?,1,0.99837583,0.5318682193756104,0.8808377981185913
+How do I get from Central Park to San Francisco using train?,How do I get from Times Square to San Diego using train?,1,1.0000001,0.7247476577758789,0.8927038908004761
+How do I get from Brooklyn to Central Park using bus?,Is the metro from City Center to LA running tomorrow?,0,0.8391912,0.43744957447052,0.8133447170257568
+How do I get from Downtown to JFK Airport using train?,Is the bus from Brooklyn to San Diego running this weekend?,0,0.83995765,0.3384167551994324,0.7843860387802124
+How do I get from Central Park to San Diego using bus?,Is the metro from Central Park to Union Station running tomorrow?,0,0.8453449,0.4376663565635681,0.8504881858825684
+How do I get from JFK Airport to LA using train?,Is the metro from City Center to JFK Airport running this weekend?,0,0.83250433,0.5648475885391235,0.8561490774154663
+How do I get from Central Park to Brooklyn using train?,What's the way from Central Park to Brooklyn using train?,2,0.96794504,0.9417808055877686,0.9866679310798645
+How do I get from Downtown to Manhattan using metro?,How do I get from Brooklyn to San Francisco using train?,1,0.8918203,0.6742663979530334,0.8826568126678467
+How do I get from LA to Brooklyn using train?,How do I get from Union Station to San Diego using train?,1,0.992768,0.5756192803382874,0.8832910060882568
+Is the train from San Diego to Union Station running today?,Do trains from San Diego to Union Station running today?,2,0.9942055,0.9413681626319885,0.9900216460227966
+How do I get from Brooklyn to JFK Airport using bus?,How do I get from Manhattan to JFK Airport using bus?,1,0.9999996,0.9511441588401794,0.9654526710510254
+How do I get from JFK Airport to Downtown using train?,Is the train from San Francisco to San Diego running tomorrow?,0,0.88801724,0.36221936345100403,0.8024035692214966
+How do I get from Central Park to Manhattan using metro?,How do I get from Central Park to LA using train?,1,0.89891076,0.7296953201293945,0.9149311780929565
+How do I get from City Center to San Diego using metro?,How do I get from Manhattan to Times Square using bus?,1,0.91687703,0.4621623754501343,0.8413844704627991
+How do I get from LA to City Center using train?,Is the train from San Diego to Times Square running today?,0,0.8788477,0.4356576204299927,0.8365309238433838
+How do I get from LA to Central Park using metro?,How do I get from Brooklyn to San Diego using metro?,1,1.0000004,0.7202416658401489,0.8893733024597168
+How do I get from LA to Manhattan using bus?,Is the metro from City Center to JFK Airport running this weekend?,0,0.83718616,0.4010404348373413,0.8033446669578552
+How do I get from Brooklyn to Downtown using bus?,How do I get from Union Station to Times Square using metro?,1,0.9067566,0.4831908047199249,0.8594801425933838
+How do I get from Central Park to LA using train?,How do I get from Downtown to San Francisco using metro?,1,0.89865935,0.5430701375007629,0.8588269352912903
+How do I get from San Francisco to Union Station using metro?,Is the bus from JFK Airport to Union Station running this weekend?,0,0.8432484,0.4652802050113678,0.837073802947998
+How do I get from Central Park to San Diego using train?,How do I get from Times Square to San Diego using bus?,1,0.94315606,0.7339082956314087,0.8851888179779053
+How do I get from Manhattan to Brooklyn using train?,How do I get from City Center to Central Park using train?,1,0.992768,0.5810415148735046,0.8906069397926331
+How do I get from San Francisco to Central Park using train?,How do I get from LA to Brooklyn using train?,1,0.992768,0.6359756588935852,0.887877345085144
+How do I get from Times Square to JFK Airport using metro?,How do I get from Brooklyn to Downtown using train?,1,0.8941851,0.5718787312507629,0.8683798909187317
+How do I get from Central Park to City Center using train?,How do I get from Central Park to Manhattan using metro?,1,0.8983823,0.7590464949607849,0.940307080745697
+How do I get from Central Park to LA using bus?,Is the bus from Central Park to City Center running this weekend?,0,0.90603006,0.6568711400032043,0.8912823796272278
+How do I get from JFK Airport to Times Square using metro?,What's the way from JFK Airport to Times Square using metro?,2,0.96531516,0.9498016834259033,0.9860897064208984
+How do I get from JFK Airport to City Center using bus?,What's the way from JFK Airport to City Center using bus?,2,0.96784,0.9404633045196533,0.9885260462760925
+How do I get from Central Park to Union Station using bus?,Is the metro from San Diego to Union Station running today?,0,0.84872246,0.5091394782066345,0.8497646450996399
+How do I get from LA to San Diego using metro?,Is the metro from LA to San Diego running today?,0,0.8797333,0.7589547038078308,0.9258254170417786
+How do I get from Times Square to San Diego using train?,What's the way from Times Square to San Diego using train?,2,0.9686791,0.9448181986808777,0.9852806925773621
+How do I get from Downtown to LA using bus?,How do I get from LA to Brooklyn using train?,1,0.92782146,0.669741690158844,0.883859395980835
+How do I get from Brooklyn to City Center using metro?,What's the way from Brooklyn to City Center using metro?,2,0.96624076,0.933407723903656,0.9878097772598267
+How do I get from Central Park to LA using bus?,Is the train from Union Station to Brooklyn running next Monday?,0,0.8670673,0.3557118773460388,0.7835694551467896
+How do I get from Downtown to Brooklyn using train?,Is the train from Manhattan to LA running next Monday?,0,0.9076169,0.600798487663269,0.8386162519454956
+How do I get from Downtown to Brooklyn using metro?,What's the way from Downtown to Brooklyn using metro?,2,0.95935243,0.94547039270401,0.9859296679496765
+How do I get from JFK Airport to Brooklyn using bus?,How do I get from JFK Airport to City Center using bus?,1,0.99821293,0.8149480223655701,0.9449030160903931
+How do I get from Downtown to Brooklyn using train?,Is the train from Central Park to San Diego running tomorrow?,0,0.8794067,0.442070871591568,0.8401683568954468
+How do I get from San Diego to LA using train?,How do I get from City Center to Central Park using bus?,1,0.9403368,0.49059808254241943,0.8293786644935608
+How do I get from LA to Times Square using bus?,What's the way from LA to Times Square using bus?,2,0.9650619,0.9372499585151672,0.9845277070999146
+How do I get from Union Station to Times Square using metro?,How do I get from JFK Airport to Central Park using bus?,1,0.9219032,0.4342387914657593,0.8319856524467468
+How do I get from Brooklyn to JFK Airport using bus?,How do I get from Manhattan to LA using train?,1,0.93339276,0.6585406064987183,0.8362215161323547
+How do I get from Brooklyn to City Center using train?,How do I get from Central Park to LA using bus?,1,0.93663204,0.6412376165390015,0.8595722317695618
+How do I get from Union Station to San Francisco using metro?,How do I get from JFK Airport to Central Park using bus?,1,0.9219032,0.45083555579185486,0.8197206854820251
+How do I get from City Center to Brooklyn using metro?,How do I get from Union Station to San Francisco using train?,1,0.8983823,0.5428593158721924,0.8438782095909119
+Is the train from Manhattan to Downtown running tomorrow?,Do trains from Manhattan to Downtown running tomorrow?,2,0.99434555,0.9354267120361328,0.9896533489227295
+How do I get from San Diego to San Francisco using train?,How do I get from Union Station to City Center using bus?,1,0.94315606,0.5035119652748108,0.8437649607658386
+Is the train from San Francisco to LA running tomorrow?,Do trains from San Francisco to LA running tomorrow?,2,0.9948084,0.9434032440185547,0.9905014038085938
+How do I get from Brooklyn to LA using bus?,How do I get from San Diego to San Francisco using train?,1,0.92678493,0.5402418971061707,0.8543668985366821
+How do I get from Brooklyn to Downtown using train?,How do I get from Brooklyn to LA using bus?,1,0.92782146,0.7806132435798645,0.900618314743042
+How do I get from JFK Airport to San Francisco using train?,Is the train from Times Square to Manhattan running tomorrow?,0,0.8850272,0.480977863073349,0.82903653383255
+How do I get from City Center to Times Square using bus?,What's the way from City Center to Times Square using bus?,2,0.96784,0.9364848732948303,0.9877224564552307
+How do I get from Times Square to San Diego using train?,How do I get from Brooklyn to JFK Airport using bus?,1,0.9381837,0.4294928014278412,0.811394989490509
+How do I get from Union Station to City Center using bus?,How do I get from San Diego to JFK Airport using train?,1,0.94315606,0.5497605800628662,0.8376588821411133
+How do I get from San Francisco to Brooklyn using train?,How do I get from Manhattan to Union Station using train?,1,0.9997187,0.7265221476554871,0.8964132070541382
+How do I get from San Francisco to San Diego using train?,How do I get from JFK Airport to San Francisco using bus?,1,0.94315606,0.6914467215538025,0.8642619252204895
+How do I get from Downtown to Brooklyn using metro?,Is the metro from City Center to Brooklyn running tomorrow?,0,0.873289,0.7305919528007507,0.904254138469696
+How do I get from Brooklyn to Downtown using metro?,How do I get from Times Square to JFK Airport using metro?,1,0.99394554,0.6724171042442322,0.9042659401893616
+How do I get from City Center to JFK Airport using train?,What's the way from City Center to JFK Airport using train?,2,0.9686791,0.9380567073822021,0.9877443909645081
+Is the train from San Francisco to LA running tomorrow?,Do trains from San Francisco to LA running tomorrow?,2,0.9948084,0.9434032440185547,0.9905014038085938
+How do I get from Union Station to City Center using bus?,Is the bus from JFK Airport to San Francisco running tomorrow?,0,0.8962673,0.43916210532188416,0.8179536461830139
+How do I get from Union Station to Manhattan using metro?,Is the bus from Brooklyn to San Diego running this weekend?,0,0.8236335,0.32063767313957214,0.788999080657959
+How do I get from Central Park to San Diego using bus?,How do I get from LA to Central Park using metro?,1,0.9145739,0.6784875988960266,0.918194055557251
+How do I get from Brooklyn to JFK Airport using bus?,How do I get from Manhattan to Times Square using bus?,1,0.9999996,0.7284426689147949,0.8932426571846008
+How do I get from JFK Airport to San Francisco using train?,How do I get from Brooklyn to Downtown using train?,1,0.992768,0.6657960414886475,0.8824377655982971
+How do I get from Brooklyn to Downtown using train?,How do I get from Downtown to Central Park using train?,1,0.99696326,0.7883436679840088,0.9302020072937012
+How do I get from JFK Airport to Central Park using bus?,How do I get from Times Square to Central Park using train?,1,0.94315606,0.6821001768112183,0.8941431045532227
+How do I get from JFK Airport to Times Square using metro?,How do I get from Union Station to San Diego using bus?,1,0.9219032,0.37189781665802,0.8028700351715088
+How do I get from JFK Airport to Times Square using metro?,What's the way from JFK Airport to Times Square using metro?,2,0.96531516,0.9498016834259033,0.9860897064208984
+How do I get from Downtown to San Francisco using metro?,Is the train from City Center to Central Park running this weekend?,0,0.82521325,0.39590004086494446,0.8182721138000488
+How do I get from San Francisco to Downtown using train?,What's the way from San Francisco to Downtown using train?,2,0.96794504,0.9463051557540894,0.9842244982719421
+How do I get from San Diego to San Francisco using metro?,How do I get from Central Park to Brooklyn using train?,1,0.90335625,0.47611305117607117,0.8487906455993652
+How do I get from Central Park to JFK Airport using train?,Is the bus from Brooklyn to San Diego running today?,0,0.84104013,0.3528721034526825,0.7927361130714417
+How do I get from Times Square to JFK Airport using metro?,How do I get from JFK Airport to Union Station using bus?,1,0.9219032,0.6833508610725403,0.9069207310676575
+How do I get from Central Park to LA using train?,How do I get from Brooklyn to San Diego using metro?,1,0.89865935,0.5432052612304688,0.8464973568916321
+How do I get from JFK Airport to City Center using bus?,How do I get from Manhattan to JFK Airport using bus?,1,0.99837583,0.8538410067558289,0.9556443691253662
+How do I get from Brooklyn to Downtown using train?,What's the way from Brooklyn to Downtown using train?,2,0.96309984,0.9382856488227844,0.9860122799873352
+How do I get from JFK Airport to Downtown using bus?,Is the metro from City Center to Times Square running next Monday?,0,0.86257744,0.3545874059200287,0.8003809452056885
+How do I get from JFK Airport to Times Square using metro?,Is the bus from Union Station to Central Park running tomorrow?,0,0.83305067,0.3657033443450928,0.8079559206962585
+How do I get from Union Station to Brooklyn using metro?,How do I get from Times Square to San Diego using bus?,1,0.9145691,0.4515641927719116,0.8450024724006653
+How do I get from LA to San Francisco using metro?,How do I get from City Center to JFK Airport using train?,1,0.8985646,0.46923089027404785,0.8478328585624695
+How do I get from LA to Manhattan using bus?,How do I get from Manhattan to Downtown using metro?,1,0.9015567,0.7444819808006287,0.9048210382461548
+How do I get from Manhattan to Downtown using bus?,How do I get from Manhattan to Times Square using bus?,1,0.99691373,0.8187113404273987,0.946130633354187
+How do I get from City Center to Downtown using train?,How do I get from Brooklyn to Downtown using bus?,1,0.92823076,0.7021191120147705,0.8967854380607605
+How do I get from LA to Downtown using train?,Is the metro from San Francisco to Brooklyn running tomorrow?,0,0.8209837,0.4864293038845062,0.8046829700469971
+How do I get from LA to San Francisco using metro?,How do I get from Brooklyn to Manhattan using bus?,1,0.9031915,0.5386802554130554,0.8569954633712769
+How do I get from Brooklyn to San Diego using metro?,Is the bus from Times Square to Central Park running tomorrow?,0,0.82539105,0.38255390524864197,0.8085300922393799
+How do I get from Times Square to Manhattan using bus?,What's the way from Times Square to Manhattan using bus?,2,0.9633494,0.9401963949203491,0.9818912744522095
+How do I get from Central Park to LA using metro?,How do I get from LA to Downtown using train?,1,0.8919432,0.7913063764572144,0.9156718254089355
+How do I get from Times Square to LA using train?,Is the metro from Manhattan to Brooklyn running today?,0,0.7986735,0.446285605430603,0.8129292726516724
+How do I get from Central Park to Downtown using metro?,Is the metro from Downtown to Brooklyn running tomorrow?,0,0.87126994,0.603196918964386,0.8792775869369507
+How do I get from Union Station to San Francisco using train?,Is the bus from Central Park to City Center running this weekend?,0,0.8578875,0.3765273690223694,0.7913497090339661
+How do I get from Manhattan to City Center using train?,How do I get from Manhattan to JFK Airport using bus?,1,0.9372192,0.6840575933456421,0.8714417219161987
+How do I get from Union Station to San Francisco using train?,Is the train from Central Park to JFK Airport running this weekend?,0,0.89337295,0.43703269958496094,0.8000086545944214
+How do I get from San Francisco to Downtown using train?,Is the bus from JFK Airport to San Diego running next Monday?,0,0.86779076,0.4631485939025879,0.7998384237289429
+How do I get from City Center to Brooklyn using train?,How do I get from San Francisco to Central Park using train?,1,0.99770397,0.6741726398468018,0.9012110829353333
+How do I get from Manhattan to Times Square using bus?,Is the bus from Union Station to Downtown running today?,0,0.90096605,0.4825795888900757,0.8485596179962158
+How do I get from Brooklyn to Union Station using metro?,Is the train from Manhattan to Downtown running tomorrow?,0,0.8194822,0.5351136922836304,0.8275876641273499
+How do I get from City Center to San Francisco using train?,How do I get from JFK Airport to City Center using bus?,1,0.94315606,0.6016941666603088,0.8789282441139221
+How do I get from LA to Downtown using train?,Is the metro from Union Station to San Diego running today?,0,0.809548,0.4425046443939209,0.8181820511817932
+How do I get from Times Square to San Diego using train?,Is the train from Union Station to Central Park running next Monday?,0,0.9172918,0.4404645562171936,0.8265336155891418
+How do I get from Union Station to Central Park using metro?,Is the metro from Manhattan to Brooklyn running today?,0,0.8742843,0.4850502014160156,0.8404760956764221
+How do I get from City Center to Downtown using train?,Is the bus from City Center to LA running today?,0,0.8379399,0.5170970559120178,0.8564733862876892
+How do I get from Union Station to Times Square using bus?,Is the metro from Downtown to LA running tomorrow?,0,0.8319438,0.3899470865726471,0.8010328412055969
+How do I get from LA to San Francisco using metro?,How do I get from Downtown to LA using bus?,1,0.9031915,0.6372696757316589,0.8952750563621521
+How do I get from Manhattan to Downtown using train?,Is the train from LA to Union Station running this weekend?,0,0.88386023,0.41223111748695374,0.8171111941337585
+Is the train from Union Station to Central Park running next Monday?,Do trains from Union Station to Central Park running next Monday?,2,0.9937366,0.9590688943862915,0.9912411570549011
+How do I get from Union Station to Times Square using bus?,How do I get from JFK Airport to City Center using metro?,1,0.9219032,0.5010029077529907,0.8430384993553162
+How do I get from Central Park to Manhattan using metro?,Is the bus from Union Station to Downtown running next Monday?,0,0.85044134,0.40420833230018616,0.8327390551567078
+How do I get from LA to Central Park using metro?,Is the train from Times Square to Manhattan running tomorrow?,0,0.82111776,0.39796212315559387,0.8162102103233337
+How do I get from Downtown to LA using bus?,How do I get from Central Park to Manhattan using metro?,1,0.90337074,0.5304571986198425,0.8456218242645264
+How do I get from LA to Downtown using bus?,Is the bus from Central Park to City Center running this weekend?,0,0.89993554,0.5400442481040955,0.8455219864845276
+How do I get from JFK Airport to Central Park using bus?,Is the metro from Times Square to Downtown running next Monday?,0,0.8679787,0.34752902388572693,0.7999781966209412
+How do I get from City Center to Central Park using train?,How do I get from Times Square to Manhattan using train?,1,0.99770397,0.6121851801872253,0.888888418674469
+How do I get from LA to Downtown using train?,How do I get from Downtown to Brooklyn using train?,1,0.9999999,0.819476306438446,0.9250154495239258
+How do I get from Central Park to City Center using train?,How do I get from Downtown to Brooklyn using metro?,1,0.88951266,0.6069474816322327,0.8785880208015442
+How do I get from Brooklyn to City Center using metro?,Is the train from San Diego to Union Station running today?,0,0.8347618,0.3129875063896179,0.792976438999176
+How do I get from San Diego to Times Square using metro?,Is the metro from Times Square to Manhattan running this weekend?,0,0.8847962,0.5923058390617371,0.8749953508377075
+How do I get from Times Square to San Francisco using train?,How do I get from Brooklyn to Downtown using metro?,1,0.88951266,0.5847800374031067,0.86967933177948
+How do I get from Central Park to San Diego using bus?,What's the way from Central Park to San Diego using bus?,2,0.96784,0.9431974291801453,0.9872811436653137
+How do I get from LA to Brooklyn using train?,How do I get from Brooklyn to JFK Airport using bus?,1,0.93339276,0.7595701217651367,0.8983376622200012
+How do I get from San Diego to Brooklyn using train?,Is the bus from Union Station to City Center running next Monday?,0,0.86779076,0.4185895621776581,0.8177803158760071
+How do I get from Times Square to San Diego using train?,Is the bus from Central Park to Manhattan running tomorrow?,0,0.847227,0.411487877368927,0.8155817985534668
+How do I get from Manhattan to Union Station using train?,How do I get from Manhattan to San Francisco using metro?,1,0.89872354,0.6054537892341614,0.8944538831710815
+How do I get from Central Park to Times Square using train?,How do I get from Brooklyn to Downtown using metro?,1,0.88951266,0.5827488303184509,0.8763881921768188
+How do I get from San Francisco to Times Square using bus?,What's the way from San Francisco to Times Square using bus?,2,0.96784,0.9439659118652344,0.9851621985435486
+How do I get from JFK Airport to LA using train?,Is the metro from City Center to Brooklyn running tomorrow?,0,0.8295397,0.4025059640407562,0.7987107038497925
+How do I get from Manhattan to Downtown using bus?,How do I get from City Center to San Francisco using train?,1,0.92678493,0.5603256821632385,0.8797750473022461
+How do I get from Times Square to LA using train?,What's the way from Times Square to LA using train?,2,0.96794504,0.9352712035179138,0.9801226258277893
+How do I get from Union Station to San Diego using bus?,How do I get from LA to Downtown using train?,1,0.9340061,0.5416174530982971,0.8484225869178772
+How do I get from Times Square to JFK Airport using metro?,What's the way from Times Square to JFK Airport using metro?,2,0.96531516,0.9461289048194885,0.9840666651725769
+How do I get from JFK Airport to Downtown using bus?,Is the train from Union Station to Brooklyn running next Monday?,0,0.8670673,0.329319030046463,0.7971429824829102
+Is the train from San Diego to Manhattan running today?,Do trains from San Diego to Manhattan running today?,2,0.9942608,0.9349006414413452,0.990318775177002
+How do I get from Central Park to San Diego using train?,How do I get from Union Station to Times Square using metro?,1,0.90513605,0.42930179834365845,0.8361095190048218
+How do I get from Times Square to Central Park using train?,What's the way from Times Square to Central Park using train?,2,0.9686791,0.9444505572319031,0.9860908389091492
+How do I get from Brooklyn to JFK Airport using bus?,Is the metro from City Center to Times Square running tomorrow?,0,0.83823866,0.318451851606369,0.7919796109199524
+How do I get from Manhattan to Downtown using metro?,What's the way from Manhattan to Downtown using metro?,2,0.95935243,0.9311806559562683,0.9836793541908264
+How do I get from City Center to Downtown using train?,Is the metro from Manhattan to Central Park running this weekend?,0,0.82341284,0.5091668963432312,0.8426182866096497
+How do I get from Union Station to Manhattan using metro?,How do I get from Times Square to Manhattan using bus?,1,0.9119492,0.7148699164390564,0.9051229357719421
+How do I get from Central Park to City Center using train?,Is the metro from Downtown to Brooklyn running tomorrow?,0,0.82204217,0.44221311807632446,0.8449394106864929
+How do I get from Manhattan to LA using train?,How do I get from San Diego to Downtown using bus?,1,0.9331193,0.4261741638183594,0.8371085524559021
+How do I get from City Center to Union Station using bus?,How do I get from Union Station to Brooklyn using metro?,1,0.9145691,0.711535632610321,0.9163898229598999
+How do I get from Times Square to Central Park using train?,How do I get from Central Park to San Diego using train?,1,1.0000001,0.6956759691238403,0.9279652237892151
+How do I get from City Center to San Diego using metro?,Is the metro from San Diego to Central Park running next Monday?,0,0.91508377,0.6816603541374207,0.899563729763031
+How do I get from Union Station to San Francisco using metro?,Is the train from JFK Airport to San Diego running this weekend?,0,0.83407354,0.445944219827652,0.8056886196136475
+How do I get from Times Square to LA using train?,How do I get from City Center to Union Station using bus?,1,0.9403368,0.5338981747627258,0.8568693399429321
+How do I get from Brooklyn to Central Park using metro?,What's the way from Brooklyn to Central Park using metro?,2,0.96624076,0.9385527968406677,0.9887142777442932
+How do I get from City Center to JFK Airport using bus?,Is the bus from Manhattan to City Center running this weekend?,0,0.90070117,0.5536600351333618,0.8634938597679138
+How do I get from Central Park to Times Square using train?,How do I get from Manhattan to Union Station using train?,1,0.99799657,0.6218981146812439,0.8888393640518188
+How do I get from Downtown to Union Station using train?,How do I get from Times Square to Union Station using bus?,1,0.9404548,0.7445195913314819,0.914763331413269
+How do I get from Brooklyn to City Center using train?,Is the metro from Downtown to LA running tomorrow?,0,0.8183758,0.46912336349487305,0.828136682510376
+How do I get from JFK Airport to Central Park using bus?,How do I get from City Center to San Diego using metro?,1,0.9219032,0.4395698308944702,0.8224961757659912
+How do I get from San Diego to San Francisco using metro?,How do I get from JFK Airport to Central Park using bus?,1,0.9219032,0.394443154335022,0.8072220087051392
+How do I get from JFK Airport to City Center using metro?,Is the train from San Francisco to LA running tomorrow?,0,0.82795715,0.32222023606300354,0.7907984852790833
+How do I get from JFK Airport to San Francisco using train?,How do I get from JFK Airport to City Center using metro?,1,0.90513605,0.7064114809036255,0.9004783630371094
+How do I get from Brooklyn to LA using bus?,How do I get from JFK Airport to Central Park using bus?,1,0.9936571,0.6268438696861267,0.8843224048614502
+How do I get from LA to Brooklyn using train?,How do I get from Downtown to LA using bus?,1,0.92782146,0.669741690158844,0.883859395980835
+How do I get from Brooklyn to Downtown using metro?,Is the metro from Brooklyn to Union Station running this weekend?,0,0.86914384,0.6456632018089294,0.8773182034492493
+How do I get from Downtown to JFK Airport using train?,How do I get from City Center to Times Square using metro?,1,0.9033477,0.503396213054657,0.8579683303833008
+How do I get from Brooklyn to Downtown using train?,How do I get from LA to Manhattan using bus?,1,0.92782146,0.7723146677017212,0.8701068758964539
+How do I get from Times Square to Manhattan using bus?,What's the way from Times Square to Manhattan using bus?,2,0.9633494,0.9401963949203491,0.9818912744522095
+How do I get from Downtown to Union Station using bus?,How do I get from JFK Airport to San Francisco using train?,1,0.9381837,0.5394210815429688,0.8357098698616028
+How do I get from Times Square to Union Station using train?,What's the way from Times Square to Union Station using train?,2,0.9686791,0.9341161251068115,0.9845721125602722
+How do I get from Central Park to JFK Airport using train?,Is the train from San Francisco to San Diego running tomorrow?,0,0.89504963,0.3581222891807556,0.7994033694267273
+How do I get from LA to Downtown using train?,Is the train from Union Station to Brooklyn running next Monday?,0,0.9024095,0.4668119549751282,0.8004293441772461
+How do I get from Union Station to San Francisco using train?,Is the bus from Downtown to Times Square running today?,0,0.84104013,0.3550514876842499,0.7936481833457947
+Is the train from Brooklyn to Downtown running next Monday?,Do trains from Brooklyn to Downtown running next Monday?,2,0.9935093,0.9482864141464233,0.9911935329437256
+How do I get from JFK Airport to San Francisco using train?,What's the way from JFK Airport to San Francisco using train?,2,0.9686791,0.9483432173728943,0.9837825298309326
+How do I get from LA to City Center using train?,Is the bus from JFK Airport to San Francisco running today?,0,0.8431658,0.36371785402297974,0.7897244095802307
+How do I get from Union Station to JFK Airport using metro?,How do I get from Times Square to San Diego using train?,1,0.90513605,0.4310697019100189,0.8137615919113159
+How do I get from San Diego to San Francisco using train?,Is the bus from Brooklyn to Central Park running this weekend?,0,0.84563786,0.3760124444961548,0.7916688323020935
+How do I get from Manhattan to JFK Airport using metro?,How do I get from San Francisco to Downtown using train?,1,0.89865935,0.5772016048431396,0.8253247737884521
+How do I get from Central Park to Manhattan using metro?,What's the way from Central Park to Manhattan using metro?,2,0.9651872,0.9369741082191467,0.9865365028381348
+How do I get from Brooklyn to City Center using train?,How do I get from Union Station to Central Park using metro?,1,0.9033477,0.670315682888031,0.8938863277435303
+How do I get from Brooklyn to San Francisco using train?,What's the way from Brooklyn to San Francisco using train?,2,0.9693333,0.9409779906272888,0.9835036396980286
+How do I get from JFK Airport to Union Station using bus?,Is the train from Brooklyn to Manhattan running next Monday?,0,0.8740127,0.34130698442459106,0.7823870182037354
+How do I get from San Francisco to JFK Airport using train?,Is the train from Manhattan to Union Station running next Monday?,0,0.917711,0.4560420513153076,0.8222700357437134
+How do I get from City Center to Central Park using train?,What's the way from City Center to Central Park using train?,2,0.9686791,0.9369919896125793,0.9890168905258179
+How do I get from Times Square to Downtown using metro?,How do I get from Brooklyn to City Center using metro?,1,0.9997523,0.7421079874038696,0.919632613658905
+How do I get from LA to Downtown using train?,Is the bus from San Diego to Times Square running tomorrow?,0,0.8350492,0.3902609646320343,0.8117021322250366
+How do I get from Manhattan to Downtown using train?,Is the train from San Diego to Union Station running today?,0,0.86953,0.38899797201156616,0.8300523161888123
+How do I get from Brooklyn to City Center using train?,How do I get from San Francisco to LA using metro?,1,0.8985566,0.6003798842430115,0.8647152781486511
+How do I get from Central Park to Brooklyn using train?,Is the train from City Center to Central Park running this weekend?,0,0.8858827,0.6382322311401367,0.8927174806594849
+How do I get from Brooklyn to San Diego using metro?,How do I get from LA to San Diego using bus?,1,0.9118377,0.7823629975318909,0.9047127366065979
+How do I get from Central Park to San Diego using train?,Is the train from Times Square to Union Station running this weekend?,0,0.89337295,0.36005160212516785,0.8160371780395508
+How do I get from Times Square to San Francisco using train?,Is the train from Central Park to San Diego running next Monday?,0,0.9172918,0.5414016842842102,0.8213505744934082
+How do I get from LA to Downtown using train?,Is the train from Union Station to Times Square running this weekend?,0,0.8780705,0.4321504235267639,0.8191660642623901
+How do I get from Central Park to LA using metro?,Is the train from Union Station to JFK Airport running next Monday?,0,0.84798336,0.38381311297416687,0.7998716831207275
+How do I get from Central Park to Union Station using train?,Is the metro from Times Square to Downtown running next Monday?,0,0.8543716,0.38260185718536377,0.8059923648834229
+How do I get from Manhattan to LA using bus?,How do I get from Manhattan to Brooklyn using train?,1,0.92782146,0.7946719527244568,0.8994815945625305
+How do I get from JFK Airport to Times Square using train?,How do I get from San Diego to San Francisco using train?,1,1.0000001,0.454499751329422,0.8401062488555908
+How do I get from LA to Downtown using train?,How do I get from San Francisco to Times Square using bus?,1,0.9340061,0.5681910514831543,0.8444834351539612
+How do I get from Manhattan to JFK Airport using bus?,How do I get from Union Station to Times Square using metro?,1,0.91687703,0.4272696077823639,0.8507324457168579
+How do I get from LA to Central Park using metro?,Is the train from Times Square to San Diego running this weekend?,0,0.82521325,0.4064982235431671,0.8222359418869019
+How do I get from San Diego to Times Square using metro?,How do I get from San Diego to Brooklyn using train?,1,0.90335625,0.6764833927154541,0.9118899703025818
+How do I get from Central Park to San Diego using train?,How do I get from Times Square to JFK Airport using metro?,1,0.90513605,0.362405389547348,0.7989634275436401
+How do I get from Manhattan to Downtown using train?,How do I get from Manhattan to LA using train?,1,0.9999999,0.8664404153823853,0.940243124961853
+How do I get from JFK Airport to Downtown using train?,Is the train from San Diego to Union Station running today?,0,0.87804693,0.3639339208602905,0.795913577079773
+How do I get from Central Park to Times Square using train?,What's the way from Central Park to Times Square using train?,2,0.9686791,0.9455844759941101,0.9869899749755859
+How do I get from JFK Airport to Central Park using bus?,Is the train from Brooklyn to Manhattan running next Monday?,0,0.8740127,0.3380660116672516,0.7982510924339294
+How do I get from City Center to Brooklyn using metro?,How do I get from Brooklyn to San Diego using metro?,1,0.9997523,0.8185632228851318,0.9458136558532715
+How do I get from City Center to San Diego using metro?,What's the way from City Center to San Diego using metro?,2,0.96531516,0.9295310974121094,0.9881559014320374
+How do I get from Central Park to Union Station using train?,What's the way from Central Park to Union Station using train?,2,0.9686791,0.938750684261322,0.9886173009872437
+How do I get from JFK Airport to Brooklyn using train?,How do I get from Union Station to Downtown using bus?,1,0.9367899,0.5458160638809204,0.8319297432899475
+How do I get from San Francisco to Brooklyn using train?,How do I get from Brooklyn to LA using train?,1,0.99706334,0.8832546472549438,0.9599878191947937
+How do I get from Brooklyn to LA using bus?,What's the way from Brooklyn to LA using bus?,2,0.9607137,0.9326636791229248,0.984582245349884
+How do I get from San Francisco to Times Square using bus?,Is the bus from Manhattan to Brooklyn running next Monday?,0,0.9200287,0.5076793432235718,0.847449541091919
+How do I get from Manhattan to LA using train?,Is the metro from Central Park to Manhattan running tomorrow?,0,0.8209837,0.5540785193443298,0.846960723400116
+How do I get from LA to San Francisco using metro?,How do I get from Brooklyn to San Diego using metro?,1,1.0000004,0.8494768142700195,0.9102127552032471
+How do I get from Central Park to Union Station using train?,How do I get from Times Square to Manhattan using bus?,1,0.9375627,0.49842602014541626,0.8465295433998108
+How do I get from LA to Brooklyn using train?,How do I get from JFK Airport to Downtown using train?,1,0.99706334,0.6720743179321289,0.8874082565307617
+How do I get from Central Park to Manhattan using bus?,How do I get from Downtown to Central Park using train?,1,0.93663204,0.774168074131012,0.9183880090713501
+How do I get from San Diego to Times Square using metro?,Is the bus from City Center to Manhattan running today?,0,0.8397023,0.3829001784324646,0.8300074338912964
+How do I get from San Diego to Downtown using metro?,What's the way from San Diego to Downtown using metro?,2,0.9651872,0.9437161684036255,0.9875065684318542
+How do I get from City Center to San Diego using metro?,Is the train from JFK Airport to San Diego running this weekend?,0,0.83407354,0.46653425693511963,0.8310830593109131
+How do I get from LA to Manhattan using metro?,Is the train from San Diego to Manhattan running today?,0,0.82483166,0.49464866518974304,0.8562995791435242
+How do I get from Central Park to Manhattan using metro?,How do I get from Central Park to Union Station using train?,1,0.8983823,0.6867031455039978,0.9192437529563904
+How do I get from Times Square to Manhattan using train?,Is the train from San Diego to San Francisco running tomorrow?,0,0.88801724,0.4017639756202698,0.821383535861969
+How do I get from San Francisco to Downtown using train?,What's the way from San Francisco to Downtown using train?,2,0.96794504,0.9463051557540894,0.9842244982719421
+How do I get from LA to Manhattan using bus?,What's the way from LA to Manhattan using bus?,2,0.9607137,0.9317994713783264,0.9846016764640808
+How do I get from San Diego to Downtown using metro?,How do I get from Central Park to LA using bus?,1,0.9119492,0.6046894192695618,0.8628253936767578
+How do I get from Union Station to San Francisco using train?,How do I get from JFK Airport to City Center using metro?,1,0.90513605,0.4895102381706238,0.8320679068565369
+How do I get from JFK Airport to San Francisco using train?,Is the train from City Center to Times Square running next Monday?,0,0.9172918,0.4303241968154907,0.8173186182975769
+How do I get from Union Station to San Diego using metro?,What's the way from Union Station to San Diego using metro?,2,0.96531516,0.9337714314460754,0.9871355891227722
+How do I get from Brooklyn to City Center using train?,How do I get from Central Park to LA using bus?,1,0.93663204,0.6412376165390015,0.8595722317695618
+How do I get from LA to Central Park using metro?,How do I get from City Center to Brooklyn using train?,1,0.89865935,0.6769618988037109,0.8828734755516052
+How do I get from Downtown to LA using bus?,How do I get from Downtown to Union Station using train?,1,0.92806643,0.610699474811554,0.8799430131912231
+How do I get from Manhattan to LA using bus?,How do I get from Union Station to Central Park using metro?,1,0.9067566,0.48430460691452026,0.848971426486969
+How do I get from Downtown to JFK Airport using bus?,How do I get from Union Station to San Francisco using train?,1,0.9381837,0.4398382604122162,0.8190674185752869
+How do I get from Central Park to Union Station using train?,How do I get from LA to Central Park using metro?,1,0.8985646,0.7010442018508911,0.9154825210571289
+How do I get from Brooklyn to San Francisco using train?,What's the way from Brooklyn to San Francisco using train?,2,0.9693333,0.9409779906272888,0.9835036396980286
+How do I get from JFK Airport to Central Park using bus?,How do I get from Brooklyn to San Francisco using train?,1,0.9404548,0.529889702796936,0.8410435318946838
+How do I get from JFK Airport to Times Square using train?,Is the train from San Francisco to San Diego running tomorrow?,0,0.89504963,0.3328361511230469,0.7955644130706787
+How do I get from Times Square to San Diego using bus?,Is the bus from City Center to Downtown running next Monday?,0,0.92472047,0.5004687309265137,0.832642138004303
+How do I get from LA to San Diego using bus?,Is the train from San Diego to Union Station running today?,0,0.8548353,0.5064880847930908,0.836795449256897
+How do I get from Union Station to Times Square using metro?,How do I get from Brooklyn to LA using train?,1,0.8941851,0.5192803740501404,0.8700927495956421
+How do I get from Union Station to Manhattan using metro?,Is the train from LA to Union Station running this weekend?,0,0.8268906,0.47550299763679504,0.8461499810218811
+How do I get from San Diego to Downtown using metro?,How do I get from Brooklyn to San Diego using metro?,1,0.9997523,0.8740627765655518,0.9490875005722046
+How do I get from City Center to Brooklyn using train?,Is the train from Downtown to Times Square running tomorrow?,0,0.880531,0.5100027322769165,0.8588982224464417
+How do I get from Downtown to JFK Airport using bus?,Is the train from San Francisco to LA running this weekend?,0,0.85374117,0.3028533160686493,0.771979808807373
+How do I get from Manhattan to Downtown using train?,How do I get from Downtown to Times Square using metro?,1,0.8919098,0.6345496773719788,0.9199889302253723
+How do I get from Times Square to Manhattan using bus?,How do I get from LA to JFK Airport using train?,1,0.93663204,0.5778174996376038,0.8346295356750488
+How do I get from Times Square to Manhattan using train?,Is the train from Manhattan to Union Station running today?,0,0.8788457,0.6530317068099976,0.8824275732040405
+How do I get from Brooklyn to JFK Airport using bus?,How do I get from JFK Airport to Brooklyn using bus?,1,0.99976516,0.9945179224014282,0.9992278218269348
+How do I get from JFK Airport to Downtown using train?,How do I get from Downtown to LA using bus?,1,0.92823076,0.6253110766410828,0.882609486579895
+How do I get from San Diego to LA using train?,Is the bus from JFK Airport to San Diego running next Monday?,0,0.86779076,0.5188581943511963,0.8283665180206299
+How do I get from Brooklyn to LA using train?,Is the train from San Diego to LA running tomorrow?,0,0.8729305,0.5269277095794678,0.8672960996627808
+How do I get from JFK Airport to LA using train?,How do I get from Central Park to Manhattan using metro?,1,0.89891076,0.5439616441726685,0.837263822555542
+How do I get from LA to Central Park using metro?,How do I get from City Center to Brooklyn using metro?,1,0.9997523,0.7775932550430298,0.9059370160102844
+How do I get from Times Square to LA using train?,How do I get from JFK Airport to Times Square using train?,1,0.99770397,0.7851458787918091,0.9334058165550232
+How do I get from JFK Airport to Central Park using bus?,Is the bus from Brooklyn to Central Park running this weekend?,0,0.90070117,0.6159257888793945,0.8869706988334656
+How do I get from Downtown to Manhattan using metro?,How do I get from JFK Airport to City Center using bus?,1,0.90727216,0.5418701171875,0.8635303378105164
+How do I get from San Francisco to San Diego using train?,How do I get from Brooklyn to Central Park using bus?,1,0.9381837,0.5155848264694214,0.8362047076225281
+How do I get from Central Park to Downtown using metro?,Is the metro from Union Station to San Diego running this weekend?,0,0.8879306,0.4902409017086029,0.835252046585083
+How do I get from Brooklyn to LA using train?,Is the metro from Downtown to LA running tomorrow?,0,0.8122448,0.5255429148674011,0.8493903279304504
+How do I get from Central Park to San Diego using train?,How do I get from Times Square to Brooklyn using bus?,1,0.9375627,0.4804978370666504,0.8191878199577332
+How do I get from Downtown to JFK Airport using train?,How do I get from Manhattan to City Center using train?,1,1.0000005,0.7065501809120178,0.8859043717384338
+How do I get from Brooklyn to Union Station using metro?,Is the train from Union Station to JFK Airport running next Monday?,0,0.8483574,0.5233141183853149,0.8513245582580566
+How do I get from Union Station to Central Park using metro?,How do I get from San Diego to San Francisco using train?,1,0.90513605,0.5171759128570557,0.8461132645606995
+How do I get from Manhattan to San Francisco using metro?,Is the bus from Brooklyn to Downtown running next Monday?,0,0.8467669,0.4172661602497101,0.813811719417572
+How do I get from Manhattan to LA using bus?,How do I get from City Center to LA using metro?,1,0.90337074,0.6505411863327026,0.9064168334007263
+How do I get from Manhattan to Times Square using bus?,How do I get from City Center to Central Park using train?,1,0.9381837,0.5350091457366943,0.8480634689331055
+How do I get from Downtown to LA using metro?,How do I get from LA to City Center using train?,1,0.8918203,0.7697625756263733,0.9260094165802002
+How do I get from Downtown to San Francisco using metro?,What's the way from Downtown to San Francisco using metro?,2,0.96624076,0.9477030634880066,0.984504222869873
+Is the train from Union Station to Brooklyn running next Monday?,Do trains from Union Station to Brooklyn running next Monday?,2,0.9934842,0.958010196685791,0.9919309020042419
+How do I get from Brooklyn to Downtown using bus?,How do I get from Downtown to LA using bus?,1,1.0000001,0.812808632850647,0.9313876628875732
+How do I get from San Francisco to Central Park using train?,How do I get from Central Park to Downtown using metro?,1,0.8983823,0.7228531241416931,0.9226283431053162
+How do I get from LA to Central Park using metro?,Is the train from San Diego to San Francisco running tomorrow?,0,0.8299255,0.4152753949165344,0.8139728307723999
+How do I get from Downtown to Union Station using bus?,How do I get from Union Station to San Diego using bus?,1,0.99837583,0.7372211813926697,0.9331041574478149
+How do I get from Times Square to San Diego using train?,Is the train from San Diego to LA running tomorrow?,0,0.8850272,0.674515962600708,0.8731865882873535
+How do I get from Brooklyn to Union Station using metro?,Is the train from Union Station to Brooklyn running next Monday?,0,0.8457216,0.648495614528656,0.9045575857162476
+How do I get from San Diego to San Francisco using train?,Is the train from Times Square to Union Station running this weekend?,0,0.89337295,0.3602183759212494,0.8116487264633179
+How do I get from Central Park to San Francisco using train?,How do I get from Downtown to LA using bus?,1,0.92678493,0.5266591310501099,0.8580249547958374
+How do I get from Central Park to City Center using train?,How do I get from San Francisco to Downtown using train?,1,0.99770397,0.6892231106758118,0.8938837647438049
+How do I get from LA to Central Park using metro?,What's the way from LA to Central Park using metro?,2,0.96624076,0.9361443519592285,0.9883037805557251
+How do I get from Brooklyn to Downtown using bus?,How do I get from Union Station to Times Square using bus?,1,0.9936571,0.5816168189048767,0.8921583294868469
+How do I get from JFK Airport to San Francisco using bus?,Is the metro from Brooklyn to Central Park running today?,0,0.83946854,0.39641687273979187,0.7846568822860718
+How do I get from Times Square to JFK Airport using metro?,What's the way from Times Square to JFK Airport using metro?,2,0.96531516,0.9461289048194885,0.9840666651725769
+How do I get from Union Station to Central Park using metro?,Is the train from Union Station to JFK Airport running next Monday?,0,0.8570275,0.5138221979141235,0.8464660048484802
+How do I get from Downtown to LA using bus?,How do I get from San Francisco to Central Park using train?,1,0.92678493,0.529721736907959,0.8576050400733948
+How do I get from Manhattan to JFK Airport using bus?,Is the metro from City Center to LA running tomorrow?,0,0.8391912,0.3354804813861847,0.7880654335021973
+How do I get from Times Square to Downtown using metro?,How do I get from LA to Times Square using bus?,1,0.9116266,0.7203459739685059,0.9165038466453552
+How do I get from City Center to JFK Airport using train?,Is the train from Central Park to LA running this weekend?,0,0.8944853,0.41099420189857483,0.8235300183296204
+How do I get from JFK Airport to San Francisco using train?,How do I get from San Diego to LA using train?,1,0.99770397,0.6872674226760864,0.8682692646980286
+How do I get from San Diego to San Francisco using train?,How do I get from Manhattan to Downtown using train?,1,0.992768,0.5754266381263733,0.8874090909957886
+How do I get from City Center to San Francisco using train?,How do I get from Brooklyn to San Diego using metro?,1,0.8985646,0.6611983180046082,0.8743560314178467
+How do I get from Times Square to Manhattan using bus?,How do I get from JFK Airport to City Center using metro?,1,0.9168729,0.561022162437439,0.8558869361877441
+How do I get from Times Square to Manhattan using bus?,How do I get from Central Park to San Diego using train?,1,0.9375627,0.4462442994117737,0.8233535289764404
+How do I get from City Center to Brooklyn using metro?,How do I get from LA to Manhattan using bus?,1,0.90337074,0.7075655460357666,0.8743619322776794
+How do I get from LA to Brooklyn using train?,How do I get from San Diego to Downtown using metro?,1,0.8919432,0.49716484546661377,0.855004072189331
+How do I get from Central Park to Manhattan using bus?,What's the way from Central Park to Manhattan using bus?,2,0.9633494,0.938120424747467,0.9857327342033386
+How do I get from Union Station to San Diego using train?,How do I get from San Francisco to Union Station using train?,1,1.0000001,0.8642944693565369,0.9406085014343262
+How do I get from Times Square to Central Park using train?,How do I get from Union Station to San Diego using metro?,1,0.90513605,0.4898141324520111,0.845826268196106
+How do I get from Downtown to JFK Airport using bus?,Is the metro from Manhattan to Central Park running this weekend?,0,0.84241796,0.3961979150772095,0.7957948446273804
+How do I get from JFK Airport to Brooklyn using train?,Is the metro from City Center to Downtown running today?,0,0.8166153,0.35657215118408203,0.7842077016830444
+How do I get from Brooklyn to San Diego using metro?,Is the bus from San Diego to City Center running next Monday?,0,0.8528849,0.559302031993866,0.8683258891105652
+How do I get from Downtown to LA using bus?,How do I get from Union Station to Times Square using metro?,1,0.9067566,0.4558826684951782,0.837108850479126
+How do I get from Times Square to Manhattan using bus?,How do I get from City Center to Brooklyn using train?,1,0.9367899,0.7180501222610474,0.8815097212791443
+How do I get from Brooklyn to City Center using train?,How do I get from Times Square to San Diego using train?,1,0.99799657,0.5650870203971863,0.8934187293052673
+How do I get from San Francisco to Union Station using metro?,How do I get from LA to Downtown using bus?,1,0.9067566,0.5194337964057922,0.8348612785339355
+How do I get from JFK Airport to Times Square using train?,What's the way from JFK Airport to Times Square using train?,2,0.9686791,0.9531347155570984,0.9859856367111206
+How do I get from Central Park to City Center using train?,How do I get from JFK Airport to Union Station using bus?,1,0.94315606,0.5323085784912109,0.819111704826355
+How do I get from Brooklyn to Downtown using bus?,How do I get from JFK Airport to LA using bus?,1,0.99712896,0.6855259537696838,0.876190721988678
+How do I get from San Diego to San Francisco using metro?,How do I get from Times Square to San Diego using train?,1,0.90513605,0.757246196269989,0.9155681133270264
+How do I get from Times Square to LA using train?,Is the metro from Brooklyn to Downtown running this weekend?,0,0.81934834,0.3957466185092926,0.8061345219612122
+How do I get from Union Station to Times Square using metro?,How do I get from Union Station to San Diego using train?,1,0.90513605,0.5599958896636963,0.8905455470085144
+How do I get from Manhattan to JFK Airport using bus?,How do I get from Manhattan to San Francisco using metro?,1,0.9118377,0.5706526041030884,0.8762416839599609
+How do I get from Times Square to Downtown using metro?,How do I get from Central Park to Manhattan using metro?,1,0.9999997,0.6946610808372498,0.9195430278778076
+How do I get from LA to San Diego using metro?,Is the train from San Francisco to LA running tomorrow?,0,0.82111776,0.5058483481407166,0.8419818878173828
+How do I get from Manhattan to City Center using train?,Is the bus from Union Station to Brooklyn running next Monday?,0,0.8679587,0.4682290554046631,0.8342967629432678
+How do I get from Union Station to Times Square using bus?,How do I get from Times Square to Manhattan using train?,1,0.9403368,0.6905242204666138,0.9204140305519104
+How do I get from Times Square to San Diego using train?,Is the bus from San Francisco to Times Square running this weekend?,0,0.8578875,0.6314242482185364,0.8610854744911194
+How do I get from Times Square to LA using train?,Is the train from Central Park to LA running this weekend?,0,0.8885852,0.5405223369598389,0.8476335406303406
+How do I get from LA to Downtown using train?,Is the metro from Times Square to Central Park running this weekend?,0,0.8218717,0.4590515196323395,0.8137995004653931
+How do I get from JFK Airport to City Center using bus?,How do I get from Union Station to JFK Airport using metro?,1,0.9219032,0.734688401222229,0.9167037606239319
+How do I get from Downtown to Central Park using train?,How do I get from LA to Brooklyn using train?,1,0.99696326,0.6205734610557556,0.8733428716659546
+How do I get from Brooklyn to Downtown using metro?,How do I get from City Center to Brooklyn using train?,1,0.89195836,0.8149311542510986,0.9382622838020325
+How do I get from Downtown to Times Square using metro?,Is the bus from Union Station to City Center running next Monday?,0,0.8528849,0.44747409224510193,0.8385627865791321
+How do I get from Brooklyn to San Francisco using train?,How do I get from Union Station to City Center using bus?,1,0.9404548,0.557561457157135,0.8588717579841614
+How do I get from Times Square to Manhattan using bus?,Is the metro from San Francisco to LA running today?,0,0.8403319,0.4415445029735565,0.8056700825691223
+How do I get from Brooklyn to JFK Airport using bus?,How do I get from JFK Airport to City Center using metro?,1,0.91687703,0.7098392248153687,0.9074820876121521
+How do I get from Central Park to Union Station using train?,How do I get from Brooklyn to San Diego using metro?,1,0.8985646,0.423592746257782,0.8275350332260132
+How do I get from Downtown to City Center using train?,What's the way from Downtown to City Center using train?,2,0.9693333,0.936489999294281,0.9876342415809631
+How do I get from San Francisco to Times Square using bus?,How do I get from Downtown to Union Station using metro?,1,0.9145739,0.5146455764770508,0.845854640007019
+How do I get from Manhattan to Times Square using bus?,How do I get from San Francisco to JFK Airport using train?,1,0.9381837,0.5712116360664368,0.8447986841201782
+How do I get from San Francisco to Union Station using metro?,What's the way from San Francisco to Union Station using metro?,2,0.96531516,0.9357367157936096,0.9851844310760498
+How do I get from LA to Central Park using metro?,How do I get from LA to City Center using train?,1,0.89872354,0.7791337966918945,0.9279628396034241
+How do I get from City Center to San Diego using metro?,Is the train from City Center to Times Square running next Monday?,0,0.8570275,0.39639225602149963,0.8448851704597473
+How do I get from Brooklyn to San Diego using metro?,Is the train from Times Square to San Diego running this weekend?,0,0.82521325,0.5094239711761475,0.857160747051239
+How do I get from Times Square to Manhattan using bus?,What's the way from Times Square to Manhattan using bus?,2,0.9633494,0.9401963949203491,0.9818912744522095
+How do I get from Downtown to JFK Airport using bus?,How do I get from LA to Central Park using metro?,1,0.9118377,0.5673395991325378,0.849367082118988
+How do I get from Downtown to LA using bus?,Is the bus from JFK Airport to Union Station running this weekend?,0,0.89993554,0.41638073325157166,0.8141826391220093
+How do I get from Central Park to San Diego using bus?,How do I get from Brooklyn to Union Station using metro?,1,0.9145739,0.4217849373817444,0.8279623985290527
+How do I get from Manhattan to Times Square using bus?,Is the metro from San Francisco to City Center running this weekend?,0,0.8492023,0.4118832051753998,0.8011102080345154
+How do I get from San Francisco to Union Station using metro?,How do I get from JFK Airport to City Center using metro?,1,0.99999946,0.6372504830360413,0.8651936650276184
+How do I get from City Center to San Francisco using train?,What's the way from City Center to San Francisco using train?,2,0.9686791,0.9386507868766785,0.9863622784614563
+How do I get from Union Station to Times Square using bus?,Is the train from Manhattan to Union Station running next Monday?,0,0.87628347,0.47599366307258606,0.8544555902481079
+How do I get from Brooklyn to JFK Airport using bus?,Is the metro from Central Park to San Diego running today?,0,0.84243596,0.2989683151245117,0.7594311833381653
+How do I get from LA to Central Park using metro?,How do I get from Manhattan to JFK Airport using metro?,1,1.0000004,0.663551926612854,0.8747959733009338
+How do I get from City Center to Brooklyn using train?,Is the train from Manhattan to Times Square running next Monday?,0,0.9112493,0.5826292037963867,0.8553543090820312
+How do I get from JFK Airport to Times Square using train?,Is the metro from San Francisco to Brooklyn running tomorrow?,0,0.83514756,0.4077029526233673,0.8243948817253113
