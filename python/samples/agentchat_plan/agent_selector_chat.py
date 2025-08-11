@@ -40,7 +40,7 @@ def selector_func(messages: Sequence[BaseAgentEvent | BaseChatMessage]) -> str |
     print("message_len")
     print(len(messages))
     if len(messages) == 1:
-        return "InputRefiner"
+        return "PlanProvider"
     if len(messages) == MAX_TURNS - 1:
         return "OutputSummarizer"
     return None
@@ -96,9 +96,9 @@ async def start_chat() -> None:
         model_cfg = yaml.safe_load(f)
     model_client = ChatCompletionClient.load_component(model_cfg)
 
-    input_refiner = AssistantAgent(
-        name="InputRefiner",
-        system_message="You are good at condensing user input into concise, structured, and information-dense task descriptions. Note: Your responses should be highly summarized, typically no more than 30 words. The input you provide is divided into sentences and keywords. The keywords must appear in the sentences. In the task description you generate, the keywords clearly stated in the input must be included and enclosed in curly braces ({}). When mentioning an entity value in your output sentence, wrap it with curly braces in the format {entity_type:entity_value}. For example, if the entity is {'transport_mode': 'train', 'source': 'jfk airport', 'destination': 'san francisco', 'date': 'next monday'}, you must refer to san francisco as {'destination': 'san francisco'} in your response.",
+    plan_provider = AssistantAgent(
+        name="PlanProvider",
+        system_message="You are good at condensing user input into concise, structured, and information-dense task descriptions. Note: Your responses should be highly summarized, typically no more than 30 words. Your generated plan should include a keyword, which is replaceable. By substituting the original keyword with another one, the new plan should remain reusable. At the same time, the originally generated plan itself should also have a high degree of reusability. In the task description you generate, the keywords clearly stated in the input must be included and enclosed in curly braces ({}). When mentioning an entity value in your output sentence, wrap it with curly braces in the format {entity_type:entity_value}. For example, if the entity is {'transport_mode': 'train', 'source': 'jfk airport', 'destination': 'san francisco', 'date': 'next monday'}, you must refer to san francisco as {'destination': 'san francisco'} in your response.",
         model_client=model_client,
         model_client_stream=True,
         reflect_on_tool_use=False,
@@ -106,7 +106,7 @@ async def start_chat() -> None:
 
     info_retriever = AssistantAgent(
         name="InfoRetriever",
-        system_message="You are good at retrieving knowledge, examples and data related to the task. When necessary, you can call the search_web tool.",
+        system_message="You are good at retrieving knowledge, examples and data related to the task. When necessary, you can call the search_web tool. The above plan is a proven and feasible plan. You only need to follow it step by step, without overthinking, without engaging in divergent thinking, without additional discussion, and simply execute the plan.",
         tools=[search_web],
         model_client=model_client,
         model_client_stream=True,
@@ -115,7 +115,7 @@ async def start_chat() -> None:
 
     analyst = AssistantAgent(
         name="Analyst",
-        system_message="You are good at conducting clear and organized analyses of given tasks or information, and can call on the analyze_data tool to assist in making judgments.",
+        system_message="You are good at conducting clear and organized analyses of given tasks or information, and can call on the analyze_data tool to assist in making judgments. The above plan is a proven and feasible plan. You only need to follow it step by step, without overthinking, without engaging in divergent thinking, without additional discussion, and simply execute the plan.",
         tools=[analyze_data],
         model_client=model_client,
         model_client_stream=True,
@@ -124,7 +124,7 @@ async def start_chat() -> None:
 
     output_summarizer = AssistantAgent(
         name="OutputSummarizer",
-        system_message="You do not directly engage in communication with other agents. You only need to make a systematic summary of the outputs given by other team members in the current context, which should be organized and easy to understand.",
+        system_message="You do not directly engage in communication with other agents. You only need to make a systematic summary of the outputs given by other team members in the current context, which should be organized and easy to understand. ",
         model_client=model_client,
 
 
@@ -133,13 +133,13 @@ async def start_chat() -> None:
     )
 
     team = SelectorGroupChat(
-        [input_refiner, info_retriever, analyst, output_summarizer],
+        [plan_provider],
         model_client=model_client,
         # selector_func=selector_func,  # 首尾定序，中间自由
         max_turns=6,
     )
 
-    cl.user_session.set("input_refiner", input_refiner)
+    cl.user_session.set(plan_provider, plan_provider)
     cl.user_session.set("team", team)  # type: ignore
 
 
@@ -156,13 +156,13 @@ async def set_starts() -> List[cl.Starter]:
 @cl.on_message
 async def chat(message: cl.Message) -> None:
     user_text = message.content
-    start_time=time.time()
+    start_time = time.time()
     embedding = semantic_cache.get_embedding(user_text)             #向量化
     similar_question, score, cached_data = semantic_cache.search_similar_query(embedding)   #相似性搜索
     cached_intent = json.loads(cached_data["intent"]) if cached_data is not None else None
     print(score)
-    input_refiner = cl.user_session.get("input_refiner")
-    refined = ""
+    plan_provider = cl.user_session.get("plan_provider")
+    new_plan_with_braces = ""
 
     load_models(intent_dir="transit_intent/bert_intent_model",
                 slot_dir="transit_intent/bert_slot_model")
@@ -188,23 +188,23 @@ async def chat(message: cl.Message) -> None:
     # else:
     #     isReuse = 2
 
-    isReuse = 1
+    isReuse = 0
 
     if isReuse == 0:
-        async for evt in input_refiner.on_messages_stream(
+        async for evt in plan_provider.on_messages_stream(
                 messages=[TextMessage(content=input, source="input")],
                 cancellation_token=CancellationToken(),
         ):
             if isinstance(evt, ModelClientStreamingChunkEvent):
-                refined += evt.content
+                new_plan_with_braces += evt.content
 
-        input_refined = clean_braces(refined)
+        new_plan_without_braces = clean_braces(new_plan_with_braces)
 
         async for evt in team.run_stream(
-                task=input_refined,
+                task=new_plan_without_braces,
                 cancellation_token=CancellationToken(),
         ):
-            semantic_cache.save_to_cache(user_text, None, refined)
+            semantic_cache.save_to_cache(user_text, None, new_plan_with_braces)
             agent_name = getattr(evt, "source", None) or getattr(getattr(evt, "chat_message", None), "source", None)
 
             if agent_name == "OutputSummarizer":

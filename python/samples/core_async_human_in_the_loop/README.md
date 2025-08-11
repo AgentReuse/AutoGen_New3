@@ -13,7 +13,7 @@ pip install "autogen-ext[openai,azure]" "pyyaml"
 ## Model Configuration
 
 The model configuration should defined in a `model_config.yml` file.
-Use `model_config_template.yml` as a template.
+Use `model_config_template.yml` as a template.a
 
 ## Running the example
 
